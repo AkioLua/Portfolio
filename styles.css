@@ -316,11 +316,6 @@ body[data-theme="dark"] .theme-icon-sun {
   box-shadow: 0 10px 24px var(--soft-shadow);
 }
 
-.button-light {
-  background: transparent;
-  border: 1.4px solid var(--ink);
-}
-
 .avatar-wrap {
   width: 42px;
   height: 42px;
@@ -1227,11 +1222,6 @@ body[data-theme="dark"] .company-logo-initials {
 
   .top-actions {
     gap: 8px;
-  }
-
-  .bell,
-  .button-light {
-    display: none;
   }
 
   .button {
