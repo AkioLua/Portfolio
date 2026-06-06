@@ -3,7 +3,6 @@ const menuButton = document.querySelector(".menu-button");
 const themeToggle = document.querySelector(".theme-toggle");
 const navLinks = [...document.querySelectorAll(".side-link")];
 const mobileNav = window.matchMedia("(max-width: 820px)");
-const preferredDark = window.matchMedia("(prefers-color-scheme: dark)");
 const sections = navLinks
   .map((link) => document.querySelector(link.getAttribute("href")))
   .filter(Boolean);
@@ -26,7 +25,7 @@ function getInitialTheme() {
     return savedTheme;
   }
 
-  return preferredDark.matches ? "dark" : "light";
+  return "light";
 }
 
 applyTheme(getInitialTheme());
@@ -107,14 +106,6 @@ themeToggle?.addEventListener("click", () => {
 
   localStorage.setItem("portfolio-theme", nextTheme);
   applyTheme(nextTheme);
-});
-
-preferredDark.addEventListener("change", (event) => {
-  if (localStorage.getItem("portfolio-theme")) {
-    return;
-  }
-
-  applyTheme(event.matches ? "dark" : "light");
 });
 
 navLinks.forEach((link) => {
