@@ -1410,6 +1410,10 @@ body[data-theme="dark"] .company-logo-initials {
     flex-direction: column;
   }
 
+  .contact-actions .text-link {
+    align-self: flex-start;
+  }
+
   .story-item .story-meta,
   .story-points,
   .timeline-points {
