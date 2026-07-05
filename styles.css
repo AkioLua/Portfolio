@@ -182,6 +182,13 @@ body[data-theme="dark"] .theme-icon-sun {
   transform: rotate(0deg) scale(1);
 }
 
+.lang-toggle svg {
+  width: 19px;
+  height: 19px;
+  fill: currentColor;
+  stroke: none;
+}
+
 .search {
   position: relative;
   display: flex;
