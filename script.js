@@ -182,17 +182,19 @@ const englishContent = {
         "Compared with classical polynomial regression and kernel methods to highlight the interpretability gain.",
         "Tools used: Python, PySR, NumPy, Pandas, Scikit-learn.",
       ],
+      linkText: "View the GitHub project",
       date: "2026 - 2 weeks",
     },
     {
-      title: "Multi-agent Modeling",
-      meta: "Multi-agent modeling project - team of 4",
+      title: "Agrisense",
+      meta: "Data engineering project - team of 4",
       points: [
-        "Implemented agents with influence and movement behaviors.",
-        "Added social pressure and boomerang effect mechanisms.",
-        "Analyzed how parameter changes affect belief diffusion.",
-        "Tools used: NetLogo.",
+        "Processed agricultural sensor streams with Apache Spark in Scala.",
+        "Handled ingestion and processing through a medallion architecture with bronze, silver and gold data lake layers.",
+        "Connected transformed data to a monitoring dashboard through Metabase.",
+        "Tools used: Scala, Apache Spark, Apache Kafka, Data Lake, Metabase.",
       ],
+      linkText: "View the GitHub project",
       date: "2026 - 2 weeks",
     },
     {
@@ -207,6 +209,17 @@ const englishContent = {
         "Tools used: Python, OR-Tools, JSON, REST API, Vite, React.",
       ],
       linkText: "View the GitHub project",
+      date: "2026 - 2 weeks",
+    },
+    {
+      title: "Multi-agent Modeling",
+      meta: "Multi-agent modeling project - team of 4",
+      points: [
+        "Implemented agents with influence and movement behaviors.",
+        "Added social pressure and boomerang effect mechanisms.",
+        "Analyzed how parameter changes affect belief diffusion.",
+        "Tools used: NetLogo.",
+      ],
       date: "2026 - 2 weeks",
     },
     {
