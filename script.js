@@ -162,6 +162,38 @@ const englishContent = {
   navLabels: ["Home", "Projects", "Skills", "Education", "Experience", "Contact"],
   projectItems: [
     {
+      title: "AgriSense",
+      meta: "Real-time data ingestion and processing - team of 4",
+      points: [
+        "Simulated and processed millions of sensor readings with Kafka and Spark using a Bronze-Silver-Gold data lake.",
+        "Built real-time frost alerts and Metabase dashboards for long-term data analysis with DuckDB.",
+        "Tools used: Scala, Spark, Kafka, DuckDB, Metabase.",
+      ],
+      linkText: "View the GitHub project",
+      date: "2026 - 1 month",
+    },
+    {
+      title: "Mobile SemiDenseNet 3D - iSeg 2017",
+      meta: "Medical image segmentation - solo project",
+      points: [
+        "Adapted the model to the iSeg 2017 dataset for infant brain MRI tissue segmentation.",
+        "Built a compact 3D SemiDenseNet with approximately 330,000 parameters using T1/T2 scans.",
+        "Targeted smartphones with tiled 3D inference and TorchScript export.",
+        "Tools used: Python, PyTorch, NumPy, NiBabel.",
+      ],
+      date: "2026 - 2 weeks",
+    },
+    {
+      title: "Pixel-Level Visual Attribution for iRAG",
+      meta: "Scientific paper analysis and presentation - solo project",
+      points: [
+        "Analyzed and presented the Chain of Evidence paper on visual attribution for iRAG.",
+        "Studied vision-language model (VLM) reasoning over document screenshots and pixel-level evidence localization.",
+        "Reviewed Wiki-CoE and SlideVQA results against text-based baselines.",
+      ],
+      date: "2026 - 1 month",
+    },
+    {
       title: "Microsoft Azure AI Sport",
       meta: "Multi-agent AI coach and injury prediction - solo project",
       points: [
@@ -186,26 +218,12 @@ const englishContent = {
       date: "2026 - 2 weeks",
     },
     {
-      title: "Agrisense",
-      meta: "Data engineering project - team of 4",
-      points: [
-        "Processed agricultural sensor streams with Apache Spark in Scala.",
-        "Handled ingestion and processing through a medallion architecture with bronze, silver and gold data lake layers.",
-        "Connected transformed data to a monitoring dashboard through Metabase.",
-        "Tools used: Scala, Apache Spark, Apache Kafka, Data Lake, Metabase.",
-      ],
-      linkText: "View the GitHub project",
-      date: "2026 - 2 weeks",
-    },
-    {
       title: "Nutritional Planning",
       meta: "Diet Problem (constraint optimization) - team of 2",
       points: [
         "Modeled the Diet Problem with CP-SAT as a multidimensional knapsack.",
-        "Planned weekly menus with variety, budget and seasonality constraints.",
-        "Added user preferences through weighted soft constraints.",
-        "Benchmarked with USDA FoodData Central and WHO/ANSES recommendations.",
-        "Compared CP-SAT / MILP with OR-Tools.",
+        "Planned weekly menus with variety, budget and seasonality constraints, plus weighted user preferences.",
+        "Compared CP-SAT / MILP with OR-Tools and benchmarked with USDA FoodData Central and WHO/ANSES recommendations.",
         "Tools used: Python, OR-Tools, JSON, REST API, Vite, React.",
       ],
       linkText: "View the GitHub project",
@@ -547,12 +565,9 @@ function applyFrenchContent() {
     setText(item.querySelector("h3"), copy.title);
     setText(item.querySelector(".story-meta"), copy.meta);
     item.querySelectorAll(".story-points li").forEach((li, pointIndex) => {
-      if (li.querySelector(".project-link")) {
-        setText(li.querySelector(".project-link"), copy.linkText);
-      } else {
-        setHTML(li, copy.points[pointIndex]);
-      }
+      setHTML(li, copy.points[pointIndex]);
     });
+    setText(item.querySelector(".project-link"), copy.linkText);
     setText(item.querySelector(":scope > span"), copy.date);
   });
 
@@ -641,14 +656,9 @@ function applyEnglishContent() {
     setText(item.querySelector("h3"), copy.title);
     setText(item.querySelector(".story-meta"), copy.meta);
     item.querySelectorAll(".story-points li").forEach((li, pointIndex) => {
-      const link = li.querySelector(".project-link");
-
-      if (link) {
-        setText(link, copy.linkText);
-      } else {
-        setText(li, copy.points[pointIndex]);
-      }
+      setText(li, copy.points[pointIndex]);
     });
+    setText(item.querySelector(".project-link"), copy.linkText);
     setText(item.querySelector(":scope > span"), copy.date);
   });
 

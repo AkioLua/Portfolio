@@ -816,6 +816,8 @@ mark {
 }
 
 .project-link {
+  display: inline-block;
+  margin-top: 10px;
   color: var(--ink);
   font-weight: 700;
   border-bottom: 1.5px solid currentColor;
