@@ -1,882 +1,1361 @@
 <!doctype html>
+
 <html lang="fr">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta
+      content="Mehdi Robardet — étudiant à l’EPITA, intelligence artificielle et développement logiciel. Projets, parcours et photographies de voyage."
       name="description"
-      content="Portfolio de Mehdi ROBARDET, etudiant a l'EPITA recherchant un stage en intelligence artificielle ou developpement logiciel."
     />
-    <title>Mehdi ROBARDET - Portfolio</title>
-    <link rel="stylesheet" href="styles.css" />
+    <meta content="#fafaf9" name="theme-color" />
+    <title>Mehdi Robardet — IA &amp; Développement</title>
+    <link href="assets/favicon.svg" rel="icon" type="image/svg+xml" />
+    <link href="styles.css" rel="stylesheet" />
+    <script defer="" src="data.js"></script>
+    <script defer="" src="script.js"></script>
   </head>
   <body>
-    <header class="topbar" aria-label="Navigation principale">
-      <button
-        class="icon-button menu-button"
-        type="button"
-        aria-label="Masquer la navigation"
-        aria-controls="portfolio-sidebar"
-        aria-expanded="true"
-      >
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M4 7h16M4 12h16M4 17h16" />
-        </svg>
-      </button>
-
-      <a class="brand" href="#accueil" aria-label="Retour a l'accueil">Mehdi</a>
-
-      <div class="search" role="search" aria-label="Rechercher un projet">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="11" cy="11" r="7" />
-          <path d="m16.5 16.5 4 4" />
-        </svg>
-        <input
-          id="project-search"
-          type="search"
-          placeholder="Rechercher un projet"
-          autocomplete="off"
-          aria-label="Rechercher un projet"
-          aria-controls="project-search-results"
-          aria-expanded="false"
-        />
-        <div
-          class="search-results"
-          id="project-search-results"
-          role="listbox"
-          aria-label="Suggestions de projets"
-          hidden
-        ></div>
-      </div>
-
-      <nav class="top-actions" aria-label="Actions">
-        <a class="button button-dark" href="mailto:mehdi.robardet@epita.fr">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M4 6h16v12H4z" />
-            <path d="m4 7 8 6 8-6" />
-          </svg>
-          Contact
-        </a>
-        <button
-          class="icon-button theme-toggle"
-          type="button"
-          aria-label="Activer le mode sombre"
-          aria-pressed="false"
+    <a class="skip-link" href="#main"
+      ><span data-en="Skip to content" data-fr="Aller au contenu"
+        >Aller au contenu</span
+      ></a
+    >
+    <header class="site-header">
+      <nav aria-label="Navigation principale" class="navigation">
+        <a
+          aria-label="Mehdi Robardet — Accueil"
+          class="wordmark"
+          href="#accueil"
+          >mr<span>.</span></a
         >
-          <svg
-            class="theme-icon theme-icon-moon"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
+        <div class="nav-links">
+          <a href="#projets"
+            ><span data-en="Projects" data-fr="Projets">Projets</span></a
+          ><a href="#parcours"
+            ><span data-en="About" data-fr="Parcours">Parcours</span></a
+          ><a href="#photos"
+            ><span data-en="Photos" data-fr="Photos">Photos</span></a
           >
-            <path d="M21 14.6A8.4 8.4 0 0 1 9.4 3 7.2 7.2 0 1 0 21 14.6Z" />
-          </svg>
-          <svg
-            class="theme-icon theme-icon-sun"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
+        </div>
+        <div class="nav-actions">
+          <button
+            aria-label="Switch to English"
+            class="language-toggle"
+            type="button"
           >
-            <circle cx="12" cy="12" r="4" />
-            <path
-              d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"
-            />
-          </svg>
-        </button>
-        <button
-          class="icon-button lang-toggle"
-          type="button"
-          aria-label="Passer en anglais"
-        >
-          <svg fill="#000000" width="800px" height="800px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <title>ionicons-v5-l</title>
-            <path d="M478.33,433.6l-90-218a22,22,0,0,0-40.67,0l-90,218a22,22,0,1,0,40.67,16.79L316.66,406H419.33l18.33,44.39A22,22,0,0,0,458,464a22,22,0,0,0,20.32-30.4ZM334.83,362,368,281.65,401.17,362Z"/>
-            <path d="M267.84,342.92a22,22,0,0,0-4.89-30.7c-.2-.15-15-11.13-36.49-34.73,39.65-53.68,62.11-114.75,71.27-143.49H330a22,22,0,0,0,0-44H214V70a22,22,0,0,0-44,0V90H54a22,22,0,0,0,0,44H251.25c-9.52,26.95-27.05,69.5-53.79,108.36-31.41-41.68-43.08-68.65-43.17-68.87a22,22,0,0,0-40.58,17c.58,1.38,14.55,34.23,52.86,83.93.92,1.19,1.83,2.35,2.74,3.51-39.24,44.35-77.74,71.86-93.85,80.74a22,22,0,1,0,21.07,38.63c2.16-1.18,48.6-26.89,101.63-85.59,22.52,24.08,38,35.44,38.93,36.1a22,22,0,0,0,30.75-4.9Z"/>
-          </svg>
-        </button>
-      </nav>
-    </header>
-
-    <div class="page-shell">
-      <aside
-        class="sidebar"
-        id="portfolio-sidebar"
-        aria-label="Sections du portfolio"
-      >
-        <nav>
-          <a class="side-link active" href="#accueil">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="m3 11 9-8 9 8" />
-              <path d="M5 10v10h5v-6h4v6h5V10" />
-            </svg>
-            Accueil
-          </a>
-          <a class="side-link" href="#projets">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M3 7h7l2 2h9v10H3z" />
-            </svg>
-            Projets
-          </a>
-          <a class="side-link" href="#competences">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="m8 17-5-5 5-5M16 7l5 5-5 5M14 4l-4 16" />
-            </svg>
-            Comp&eacute;tences
-          </a>
-          <a class="side-link" href="#education">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 19.5V5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-1.5Z" />
-              <path d="M8 7h7M8 11h7" />
-            </svg>
-            &Eacute;ducation
-          </a>
-          <a class="side-link" href="#experience">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M10 6V4h4v2M4 8h16v11H4z" />
-              <path d="M9 13h6M12 10v6" />
-            </svg>
-            Exp&eacute;rience
-          </a>
-          <a class="side-link" href="#contact">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 6h16v12H4z" />
-              <path d="m4 7 8 6 8-6" />
-            </svg>
-            Contact
-          </a>
-        </nav>
-      </aside>
-
-      <main class="content-grid">
-        <aside class="publication-card" aria-label="Resume">
-          <div class="profile-figure" aria-hidden="true">
-            <img src="assets/me.png" alt="" />
-          </div>
-          <h2>Portfolio</h2>
-          <p>
-            Un espace d&eacute;di&eacute; a mes projets, comp&eacute;tences et
-            exp&eacute;riences dans la tech et l'intelligence artificielle.
-          </p>
-          <div class="thin-rule"></div>
-          <p class="location">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 21s7-5.3 7-12A7 7 0 0 0 5 9c0 6.7 7 12 7 12Z" />
-              <circle cx="12" cy="9" r="2" />
-            </svg>
-            Paris, France
-          </p>
-          <button class="subscribe-row" type="button" aria-pressed="false">
-            <span>S'abonner</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M6 4h12v17l-6-4-6 4z" />
-            </svg>
+            EN</button
+          ><button
+            aria-label="Activer le mode sombre"
+            aria-pressed="false"
+            class="theme-toggle"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              class="moon"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              viewbox="0 0 24 24"
+            >
+              <path
+                d="M20.9 13.1A9 9 0 0 1 10.9 3.1a9 9 0 1 0 10 10Z"
+              ></path></svg
+            ><svg
+              aria-hidden="true"
+              class="sun"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              viewbox="0 0 24 24"
+            >
+              <circle cx="12" cy="12" r="4"></circle>
+              <path
+                d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"
+              ></path>
+            </svg></button
+          ><a class="nav-contact" href="#contact"
+            >Contact <span aria-hidden="true">↗</span></a
+          ><button
+            aria-controls="mobile-nav"
+            aria-expanded="false"
+            aria-label="Ouvrir le menu"
+            class="menu-toggle"
+            type="button"
+          >
+            <span></span><span></span>
           </button>
-        </aside>
-
-        <article class="article">
-          <section class="hero section-block" id="accueil">
-            <h1>
-              <span class="name-line"
-                >Mehdi ROBARDET <span class="dash">&mdash;</span></span
-              ><br />
+        </div>
+      </nav>
+      <div class="mobile-nav" hidden="" id="mobile-nav">
+        <a href="#projets"
+          ><span data-en="Projects" data-fr="Projets">Projets</span></a
+        ><a href="#parcours"
+          ><span data-en="About" data-fr="Parcours">Parcours</span></a
+        ><a href="#photos"
+          ><span data-en="Photos" data-fr="Photos">Photos</span></a
+        ><a href="#contact">Contact</a>
+      </div>
+    </header>
+    <main id="main">
+      <section class="hero container" id="accueil">
+        <div class="hero-intro">
+          <img
+            alt="Mehdi Robardet"
+            height="40"
+            src="assets/portrait.webp"
+            width="40"
+          /><span>Mehdi Robardet</span
+          ><span aria-hidden="true" class="intro-dot"></span
+          ><span
+            class="intro-school"
+            data-en="EPITA student"
+            data-fr="Étudiant à l’EPITA"
+            >Étudiant à l’EPITA</span
+          >
+        </div>
+        <h1>
+          <span data-en="A curious mind." data-fr="Un esprit curieux."
+            >Un esprit curieux.</span
+          ><span
+            class="hero-line"
+            data-en="Ideas in motion."
+            data-fr="Des idées en mouvement."
+            >Des idées en mouvement.</span
+          >
+        </h1>
+        <p class="hero-description">
+          <span
+            data-en="I explore artificial intelligence and build software. "
+            data-fr="J’explore l’intelligence artificielle et je développe des logiciels. "
+            >J’explore l’intelligence artificielle et je développe des
+            logiciels. </span
+          ><br class="desktop-break" /><span
+            data-en="With care, curiosity, and an eye for detail."
+            data-fr="Avec de la rigueur, de la curiosité et le goût du détail."
+            >Avec de la rigueur, de la curiosité et le goût du détail.</span
+          >
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#projets"
+            ><span data-en="Explore my projects" data-fr="Explorer mes projets"
+              >Explorer mes projets</span
+            ><span aria-hidden="true">↗</span></a
+          ><a class="button button-quiet" href="#contact"
+            ><span data-en="Let’s connect" data-fr="Faisons connaissance"
+              >Faisons connaissance</span
+            ><span aria-hidden="true">→</span></a
+          >
+        </div>
+        <div class="hero-bottom">
+          <span class="location-label"
+            ><span class="location-dot"></span>Paris, France</span
+          >
+          <div class="hero-specialties">
+            <span>Intelligence artificielle</span
+            ><span>Software engineering</span>
+          </div>
+          <a
+            aria-label="Découvrir les projets"
+            class="scroll-hint"
+            href="#projets"
+            >↓</a
+          >
+        </div>
+        <div aria-hidden="true" class="hero-glow"></div>
+      </section>
+      <section class="projects-section section-space" id="projets">
+        <div class="container">
+          <div class="section-heading reveal">
+            <div>
+              <p class="eyebrow">
+                01 /
+                <span
+                  data-en="CURIOSITY IN PRACTICE"
+                  data-fr="LA CURIOSITÉ EN PRATIQUE"
+                  >LA CURIOSITÉ EN PRATIQUE</span
+                >
+              </p>
+              <h2>
+                <span
+                  data-en="Think. Build. Make it real."
+                  data-fr="Pensé. Codé. Concrétisé."
+                  >Pensé. Codé. Concrétisé.</span
+                >
+              </h2>
+            </div>
+            <p class="section-description">
               <span
-                >IA & <br class="mobile-break" />d&eacute;veloppement
-                <br class="mobile-break" />logiciel</span
+                data-en="From AI to applications. A selection of projects to learn, explore, and build."
+                data-fr="De l’IA à l’application. Une sélection de projets pour apprendre, explorer et construire."
+                >De l’IA à l’application. Une sélection de projets pour
+                apprendre, explorer et construire.</span
               >
-            </h1>
-            <p class="lead">
-              &Eacute;tudiant a l'EPITA, je recherche un stage ou une
-              opportunit&eacute; en intelligence artificielle ou
-              d&eacute;veloppement logiciel.
             </p>
-
-            <div class="author-row">
-              <strong>Mehdi ROBARDET</strong>
-              <span></span>
-              <span>EPITA</span>
-              <span></span>
-              <span>Disponible 2026</span>
-            </div>
-
-            <div class="cta-row">
-              <a
-                class="button button-dark hero-cta"
-                href="mailto:mehdi.robardet@epita.fr"
+          </div>
+          <div class="project-toolbar">
+            <div
+              aria-label="Filtrer les projets"
+              class="segmented-control"
+              role="group"
+            >
+              <button aria-pressed="true" data-filter="all" type="button">
+                <span data-en="All" data-fr="Tout">Tout</span></button
+              ><button aria-pressed="false" data-filter="ai" type="button">
+                IA</button
+              ><button aria-pressed="false" data-filter="data" type="button">
+                Data</button
+              ><button
+                aria-pressed="false"
+                data-filter="software"
+                type="button"
               >
-                Me contacter
-              </a>
-              <a class="text-link" href="#projets">Voir mes projets</a>
+                Software
+              </button>
             </div>
-
-            <div class="engagement-bar" aria-label="Indicateurs">
-              <div class="metric">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M8 11v6a4 4 0 0 0 8 0v-5" />
-                  <path d="M8 11V7a2 2 0 0 1 4 0v5" />
-                  <path d="M12 12V6a2 2 0 0 1 4 0v6" />
-                  <path d="M16 12V8a2 2 0 0 1 4 0v8a8 8 0 0 1-16 0v-3" />
-                </svg>
-                128
-              </div>
-              <div class="metric">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    d="M21 12a8 8 0 0 1-8 8H7l-4 3 1.5-5A8 8 0 1 1 21 12Z"
-                  />
-                </svg>
-                12
-              </div>
-              <div class="metric">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M6 4h12v17l-6-4-6 4z" />
-                </svg>
-                46
-              </div>
-              <div class="spacer"></div>
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 3v12M8 7l4-4 4 4M5 13v7h14v-7" />
-              </svg>
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1" />
-                <path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1" />
-              </svg>
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <circle cx="5" cy="12" r="1" />
-                <circle cx="12" cy="12" r="1" />
-                <circle cx="19" cy="12" r="1" />
-              </svg>
-            </div>
-
-            <div class="intro-copy">
-              <p>
-                Passionn&eacute; par l'<mark>intelligence artificielle</mark> et
-                le d&eacute;veloppement logiciel, je con&ccedil;ois des
-                solutions utiles, performantes et durables.
-              </p>
-              <p>
-                &Agrave; travers mes <mark>projets concrets</mark>, j'explore,
-                j'apprends et je cr&eacute;e des syst&egrave;mes robustes.
-              </p>
-            </div>
-          </section>
-
-          <section class="section-block editorial-section" id="projets">
-            <p class="section-kicker">S&eacute;lection de projets</p>
-            <h2>Projets concrets.</h2>
-            <div class="story-list">
-              <article class="story-item">
-                <div>
-                  <h3>AgriSense</h3>
-                  <p class="story-meta">
-                    Ingestion et traitement de donn&eacute;es en temps r&eacute;el -
-                    &eacute;quipe de 4 membres
-                  </p>
-                  <ul class="story-points">
-                    <li>
-                      Simulation et traitement de millions de mesures de capteurs
-                      avec Kafka et Spark dans un data lake
-                      Bronze-Silver-Gold.
-                    </li>
-                    <li>
-                      Mise en place d'alertes de gel en temps r&eacute;el et de
-                      tableaux de bord Metabase pour l'analyse des donn&eacute;es
-                      sur le long terme avec DuckDB.
-                    </li>
-                    <li>
-                      Outils utilis&eacute;s : Scala, Spark, Kafka, DuckDB,
-                      Metabase.
-                    </li>
-                  </ul>
-                  <a
-                    class="project-link"
-                    href="https://github.com/AkioLua/Projet-INDE-AgriSense"
-                    target="_blank"
-                    rel="noreferrer"
-                    >Voir le projet GitHub</a
-                  >
-                </div>
-                <span>2026 - 1 mois</span>
-              </article>
-              <article class="story-item">
-                <div>
-                  <h3>Mobile SemiDenseNet 3D - iSeg 2017</h3>
-                  <p class="story-meta">
-                    Segmentation d'images m&eacute;dicales - projet seul
-                  </p>
-                  <ul class="story-points">
-                    <li>
-                      Adaptation du mod&egrave;le au jeu de donn&eacute;es
-                      iSeg 2017 pour la segmentation des tissus
-                      c&eacute;r&eacute;braux du nourrisson sur des IRM.
-                    </li>
-                    <li>
-                      D&eacute;veloppement d'un SemiDenseNet 3D compact
-                      d'environ 330 000 param&egrave;tres exploitant les
-                      s&eacute;quences T1/T2.
-                    </li>
-                    <li>
-                      Pr&eacute;paration pour smartphones avec
-                      inf&eacute;rence 3D par blocs et export TorchScript.
-                    </li>
-                    <li>
-                      Outils utilis&eacute;s : Python, PyTorch, NumPy, NiBabel.
-                    </li>
-                  </ul>
-                </div>
-                <span>2026 - 2 semaines</span>
-              </article>
-              <article class="story-item">
-                <div>
-                  <h3>Attribution visuelle au niveau du pixel pour iRAG</h3>
-                  <p class="story-meta">
-                    Analyse et pr&eacute;sentation d'un article scientifique -
-                    projet seul
-                  </p>
-                  <ul class="story-points">
-                    <li>
-                      Analyse et pr&eacute;sentation de l'article
-                      &laquo; Chain of Evidence &raquo; sur l'attribution visuelle
-                      pour iRAG.
-                    </li>
-                    <li>
-                      &Eacute;tude du raisonnement des mod&egrave;les
-                      vision-langage (VLM) sur des captures de documents et de
-                      la localisation des preuves au niveau du pixel.
-                    </li>
-                    <li>
-                      Analyse des r&eacute;sultats sur Wiki-CoE et SlideVQA
-                      par rapport aux approches de r&eacute;f&eacute;rence
-                      fond&eacute;es sur le texte.
-                    </li>
-                  </ul>
-                </div>
-                <span>2026 - 1 mois</span>
-              </article>
-              <article class="story-item">
-                <div>
-                  <h3>Microsoft Azure IA Sport</h3>
-                  <p class="story-meta">
-                    Coach IA multi-agent et pr&eacute;diction de blessure -
-                    projet seul
-                  </p>
-                  <ul class="story-points">
-                    <li>
-                      Mise en place d'un Pipeline Azure Machine Learning de
-                      pr&eacute;diction de blessure avec endpoint
-                      d'inf&eacute;rence.
-                    </li>
-                    <li>
-                      Conception d'un Workflow Multi-Agent Azure AI Foundry
-                      routant les demandes vers des agents nutrition, fitness et
-                      FAQ.
-                    </li>
-                    <li>
-                      Cr&eacute;ation d'une application React autour d'un coach
-                      sportif IA et d'un tableau de bord de suivi.
-                    </li>
-                    <li>
-                      Outils utilis&eacute;s : React, TypeScript, Azure AI
-                      Foundry, Azure Machine Learning, Microsoft Entra ID.
-                    </li>
-                  </ul>
-                  <a
-                    class="project-link"
-                    href="https://github.com/AkioLua/Microsoft-Azure-IA-Sport"
-                    target="_blank"
-                    rel="noreferrer"
-                    >Voir le projet GitHub</a
-                  >
-                </div>
-                <span>2026 - 2 semaines</span>
-              </article>
-              <article class="story-item">
-                <div>
-                  <h3>R&eacute;gression symbolique</h3>
-                  <p class="story-meta">
-                    Projet de recherche en Intelligence Artificielle - projet
-                    seul
-                  </p>
-                  <ul class="story-points">
-                    <li>
-                      Utilisation de PySR pour d&eacute;couvrir des
-                      &eacute;quations math&eacute;matiques avec
-                      complexit&eacute; de Kolmogorov.
-                    </li>
-                    <li>
-                      Analyse du front de Pareto
-                      pr&eacute;cision-complexit&eacute; afin d'identifier les
-                      &eacute;quations optimales.
-                    </li>
-                    <li>
-                      Comparaison avec la r&eacute;gression polynomiale
-                      classique et les m&eacute;thodes &agrave; noyau afin
-                      d'illustrer le gain en interpr&eacute;tabilit&eacute;.
-                    </li>
-                    <li>
-                      Outils utilis&eacute;s : Python, PySR, NumPy, Pandas,
-                      Scikit-learn.
-                    </li>
-                  </ul>
-                  <a
-                    class="project-link"
-                    href="https://github.com/AkioLua/Symbolic-Equation-Discovery"
-                    target="_blank"
-                    rel="noreferrer"
-                    >Voir le projet GitHub</a
-                  >
-                </div>
-                <span>2026 - 2 semaines</span>
-              </article>
-              <article class="story-item">
-                <div>
-                  <h3>Planification nutritionnelle</h3>
-                  <p class="story-meta">
-                    Diet Problem (optimisation sous contraintes) - &eacute;quipe
-                    de 2 membres
-                  </p>
-                  <ul class="story-points">
-                    <li>
-                      Mod&eacute;lisation CP-SAT du Diet Problem comme knapsack
-                      multi-dimensionnel.
-                    </li>
-                    <li>
-                      Planification de menus hebdomadaires avec contraintes de
-                      vari&eacute;t&eacute;, budget et saisonnalit&eacute;,
-                      et pr&eacute;f&eacute;rences utilisateur pond&eacute;r&eacute;es.
-                    </li>
-                    <li>
-                      Comparaison CP-SAT / PLNE avec OR-Tools et benchmark
-                      sur USDA FoodData Central et les apports OMS/ANSES.
-                    </li>
-                    <li>
-                      Outils utilis&eacute;s : Python, OR-Tools, JSON, API REST,
-                      Vite, React.
-                    </li>
-                  </ul>
-                  <a
-                    class="project-link"
-                    href="https://github.com/AkioLua/Planification-nutritionnelle-DIET-Problem"
-                    target="_blank"
-                    rel="noreferrer"
-                    >Voir le projet GitHub</a
-                  >
-                </div>
-                <span>2026 - 2 semaines</span>
-              </article>
-              <article class="story-item">
-                <div>
-                  <h3>Mod&eacute;lisation multi-agents</h3>
-                  <p class="story-meta">
-                    Projet de mod&eacute;lisation multi-agents - &eacute;quipe
-                    de 4 membres
-                  </p>
-                  <ul class="story-points">
-                    <li>
-                      Impl&eacute;mentation d'agents avec comportements
-                      d'influence et de d&eacute;placement.
-                    </li>
-                    <li>
-                      Ajout de m&eacute;canismes de pression sociale et d'effet
-                      boomerang.
-                    </li>
-                    <li>
-                      Analyse de l'impact des param&egrave;tres sur la diffusion
-                      des croyances.
-                    </li>
-                    <li>Outils utilis&eacute;s : NetLogo.</li>
-                  </ul>
-                </div>
-                <span>2026 - 2 semaines</span>
-              </article>
-              <article class="story-item">
-                <div>
-                  <h3>TinyX / Epitweet</h3>
-                  <p class="story-meta">
-                    Projet de syst&egrave;mes distribu&eacute;s - &eacute;quipe
-                    de 15 membres
-                  </p>
-                  <ul class="story-points">
-                    <li>
-                      D&eacute;veloppement de la timeline en Java avec Quarkus
-                      dans une architecture micro-services.
-                    </li>
-                    <li>
-                      Communication asynchrone via Redis et stockage des
-                      donn&eacute;es avec MongoDB.
-                    </li>
-                    <li>
-                      Mise en place de Dockerfiles multi-stage et de tests
-                      unitaires JUnit.
-                    </li>
-                    <li>
-                      Outils utilis&eacute;s : Java, Quarkus, Redis, MongoDB,
-                      Docker, JUnit.
-                    </li>
-                  </ul>
-                </div>
-                <span>2026 - 1 mois</span>
-              </article>
-              <article class="story-item">
-                <div>
-                  <h3>Epibazaar</h3>
-                  <p class="story-meta">
-                    D&eacute;veloppement backend d'un jeu vid&eacute;o - projet
-                    seul
-                  </p>
-                  <ul class="story-points">
-                    <li>D&eacute;veloppement d'une API REST.</li>
-                    <li>
-                      Persistance des donn&eacute;es avec Hibernate et ORM dans
-                      une base de donn&eacute;es.
-                    </li>
-                    <li>Messagerie asynchrone avec Kafka.</li>
-                    <li>
-                      Outils utilis&eacute;s : Java, Quarkus, Maven, PostgreSQL,
-                      Git.
-                    </li>
-                  </ul>
-                </div>
-                <span>2025 - 1 semaine</span>
-              </article>
-              <article class="story-item">
-                <div>
-                  <h3>Tiger</h3>
-                  <p class="story-meta">
-                    Conception d'un compilateur - &eacute;quipe de 4 membres
-                  </p>
-                  <ul class="story-points">
-                    <li>
-                      Impl&eacute;mentation d'un lexer avec RE/flex pour
-                      l'analyse lexicale.
-                    </li>
-                    <li>
-                      Conception d'un parser pour l'analyse syntaxique et
-                      construction de l'AST.
-                    </li>
-                    <li>
-                      Impl&eacute;mentation de la liaison des symboles et du
-                      type-checking via le Template Method Pattern.
-                    </li>
-                    <li>
-                      Outils utilis&eacute;s : C++, Bison, RE/flex, Git, GitLab,
-                      Autotools, CMake.
-                    </li>
-                  </ul>
-                </div>
-                <span>2025 - 4 semaines</span>
-              </article>
-              <article class="story-item">
-                <div>
-                  <h3>QRCodeur</h3>
-                  <p class="story-meta">
-                    G&eacute;n&eacute;rateur et d&eacute;codeur de QRCode -
-                    &eacute;quipe de 4 membres
-                  </p>
-                  <ul class="story-points">
-                    <li>
-                      Impl&eacute;mentation d'un outil de
-                      g&eacute;n&eacute;ration et lecture de QRCode selon la
-                      norme ISO/IEC 18004.
-                    </li>
-                    <li>Finalisation de l'apprentissage du Rust.</li>
-                    <li>Outils utilis&eacute;s : Rust, Git.</li>
-                  </ul>
-                </div>
-                <span>2024 - 1 mois</span>
-              </article>
-              <article class="story-item">
-                <div>
-                  <h3>Sudoku Solver</h3>
-                  <p class="story-meta">
-                    Reconnaissance de chiffres manuscrits - &eacute;quipe de 4
-                    membres
-                  </p>
-                  <ul class="story-points">
-                    <li>
-                      R&eacute;solution d'un Sudoku &agrave; partir d'une image.
-                    </li>
-                    <li>
-                      D&eacute;veloppement d'un r&eacute;seau de neurones pour
-                      reconna&icirc;tre les chiffres manuscrits.
-                    </li>
-                    <li>Outils utilis&eacute;s : C, Git.</li>
-                  </ul>
-                </div>
-                <span>2023 - 1 mois</span>
-              </article>
-            </div>
-          </section>
-
-          <section class="section-block editorial-section" id="competences">
-            <p class="section-kicker">Comp&eacute;tences</p>
-            <h2>Socle technique.</h2>
-            <div class="highlight-lines">
-              <p>
-                <mark
-                  >Python, JavaScript, Java, C++, C, C#, SQL, Rust, OCaml</mark
+            <label class="project-search"
+              ><svg aria-hidden="true" viewbox="0 0 24 24">
+                <circle cx="10.5" cy="10.5" r="6.5"></circle>
+                <path d="m16 16 5 5"></path></svg
+              ><input
+                aria-label="Rechercher un projet"
+                id="project-search"
+                placeholder="Rechercher un projet"
+                type="search"
+            /></label>
+          </div>
+          <div class="project-grid">
+            <article class="project-card" data-category="data" data-project="0">
+              <button class="project-open" data-project-open="0" type="button">
+                <span aria-hidden="true" class="project-art art-0"
+                  ><span class="pipeline-art">
+                    <span class="signal-node">◌</span>
+                    <span class="signal-line"></span>
+                    <span class="signal-core">
+                      <span>AgriSense</span><small>DATA IN MOTION</small>
+                      <span class="signal-bars">
+                        <i style="--h: 20%"></i><i style="--h: 45%"></i
+                        ><i style="--h: 30%"></i><i style="--h: 65%"></i
+                        ><i style="--h: 40%"></i><i style="--h: 80%"></i
+                        ><i style="--h: 55%"></i><i style="--h: 95%"></i
+                        ><i style="--h: 65%"></i><i style="--h: 80%"></i
+                        ><i style="--h: 45%"></i><i style="--h: 60%"></i>
+                      </span>
+                    </span>
+                    <span class="signal-line"></span>
+                    <span class="signal-node">↗</span>
+                  </span>
+                  <span aria-hidden="true" class="project-plus">↗</span></span
+                ><span class="project-copy"
+                  ><span class="project-category"
+                    ><span data-en="Data engineering" data-fr="Data engineering"
+                      >Data engineering</span
+                    ></span
+                  ><strong
+                    ><span data-en="AgriSense" data-fr="AgriSense"
+                      >AgriSense</span
+                    ></strong
+                  ><span class="project-description"
+                    ><span
+                      data-en="From data to decisions."
+                      data-fr="Des données aux décisions."
+                      >Des données aux décisions.</span
+                    ></span
+                  ><span class="project-tech">Scala · Spark · Kafka</span></span
                 >
-                pour passer de l'id&eacute;e au prototype, puis au service
-                robuste.
-              </p>
-              <p>
-                <mark
-                  >TensorFlow, Pandas, NumPy, SciPy, Django, Node.js, React,
-                  Quarkus</mark
+              </button>
+            </article>
+            <article class="project-card" data-category="ai" data-project="1">
+              <button class="project-open" data-project-open="1" type="button">
+                <span aria-hidden="true" class="project-art art-1"
+                  ><span class="neural-art">
+                    <span class="neural-layer layer-one"></span>
+                    <span class="neural-layer layer-two"></span>
+                    <span class="neural-layer layer-three"
+                      ><span>3D</span></span
+                    >
+                    <span class="art-caption"
+                      >330K PARAMETERS. BIG POSSIBILITIES.</span
+                    >
+                  </span>
+                  <span aria-hidden="true" class="project-plus">↗</span></span
+                ><span class="project-copy"
+                  ><span class="project-category"
+                    ><span
+                      data-en="Artificial intelligence"
+                      data-fr="Intelligence artificielle"
+                      >Intelligence artificielle</span
+                    ></span
+                  ><strong
+                    ><span
+                      data-en="Mobile SemiDenseNet 3D - iSeg 2017"
+                      data-fr="Mobile SemiDenseNet 3D - iSeg 2017"
+                      >Mobile SemiDenseNet 3D - iSeg 2017</span
+                    ></strong
+                  ><span class="project-description"
+                    ><span
+                      data-en="AI, closer to life."
+                      data-fr="L’IA, au plus près du vivant."
+                      >L’IA, au plus près du vivant.</span
+                    ></span
+                  ><span class="project-tech">Python · PyTorch</span></span
                 >
-                pour explorer l'IA, le web et les architectures backend.
-              </p>
-              <p>
-                <mark
-                  >Docker, Kubernetes, GitLab CI, Kafka, Redis, PostgreSQL,
-                  MongoDB, Neo4j</mark
+              </button>
+            </article>
+            <article class="project-card" data-category="ai" data-project="3">
+              <button class="project-open" data-project-open="3" type="button">
+                <span aria-hidden="true" class="project-art art-3"
+                  ><span class="coach-art">
+                    <span class="orbit orbit-one"></span>
+                    <span class="orbit orbit-two"></span>
+                    <span class="orbit-label orbit-top">Nutrition</span
+                    ><span class="orbit-label orbit-bottom">Fitness</span>
+                    <span class="coach-core">ai<span>in motion.</span></span>
+                  </span>
+                  <span aria-hidden="true" class="project-plus">↗</span></span
+                ><span class="project-copy"
+                  ><span class="project-category"
+                    ><span
+                      data-en="Artificial intelligence"
+                      data-fr="Intelligence artificielle"
+                      >Intelligence artificielle</span
+                    ></span
+                  ><strong
+                    ><span
+                      data-en="Microsoft Azure AI Sport"
+                      data-fr="Microsoft Azure IA Sport"
+                      >Microsoft Azure IA Sport</span
+                    ></strong
+                  ><span class="project-description"
+                    ><span
+                      data-en="One coach. Multiple intelligences."
+                      data-fr="Un coach. Plusieurs intelligences."
+                      >Un coach. Plusieurs intelligences.</span
+                    ></span
+                  ><span class="project-tech">React · Azure AI</span></span
                 >
-                pour d&eacute;ployer et maintenir des syst&egrave;mes plus
-                fiables.
-              </p>
-            </div>
-          </section>
-
-          <section class="section-block editorial-section" id="education">
-            <p class="section-kicker">&Eacute;ducation</p>
-            <h2>Formation IA et data.</h2>
-            <div class="timeline">
-              <article>
-                <span>Sept 2022 - aujourd'hui</span>
-                <img
-                  class="timeline-logo"
-                  src="assets/Epita.png"
-                  alt="Logo EPITA"
-                />
-                <h3>EPITA - &Eacute;cole d'ing&eacute;nieur en informatique</h3>
-                <p class="timeline-meta">
-                  GPA 3.7, &eacute;tudiant en derni&egrave;re ann&eacute;e
-                </p>
-                <ul class="timeline-points">
-                  <li>
-                    Intelligence artificielle : Fondamentaux pour le Machine
-                    Learning, Introduction aux r&eacute;seaux de neurones,
-                    Natural Language Processing, Syst&egrave;mes Multi-Agents et
-                    IA symbolique.
+              </button>
+            </article>
+            <article class="project-card" data-category="ai" data-project="4">
+              <button class="project-open" data-project-open="4" type="button">
+                <span aria-hidden="true" class="project-art art-4"
+                  ><span class="equation-art">
+                    <span class="equation-small"
+                      >FINDING THE BEAUTY IN DATA</span
+                    ><span class="equation">f(x) = <i>e</i><sup>−x²</sup></span
+                    ><svg aria-hidden="true" viewbox="0 0 360 90">
+                      <path class="chart-grid" d="M0 75H360M180 0V90"></path>
+                      <path
+                        class="chart-curve"
+                        d="M0 74C75 74 100 74 125 45S154 8 180 8S210 16 235 45S285 74 360 74"
+                      ></path>
+                    </svg>
+                  </span>
+                  <span aria-hidden="true" class="project-plus">↗</span></span
+                ><span class="project-copy"
+                  ><span class="project-category"
+                    ><span
+                      data-en="Artificial intelligence"
+                      data-fr="Intelligence artificielle"
+                      >Intelligence artificielle</span
+                    ></span
+                  ><strong
+                    ><span
+                      data-en="Symbolic Regression"
+                      data-fr="Régression symbolique"
+                      >Régression symbolique</span
+                    ></strong
+                  ><span class="project-description"
+                    ><span
+                      data-en="Finding the hidden equation."
+                      data-fr="Retrouver l’équation cachée."
+                      >Retrouver l’équation cachée.</span
+                    ></span
+                  ><span class="project-tech">Python · PySR</span></span
+                >
+              </button>
+            </article>
+            <article class="project-card" data-category="ai" data-project="2">
+              <button class="project-open" data-project-open="2" type="button">
+                <span aria-hidden="true" class="project-art art-2"
+                  ><span class="minimal-art">
+                    <span>VLM</span><small>VLM · iRAG</small>
+                  </span>
+                  <span aria-hidden="true" class="project-plus">↗</span></span
+                ><span class="project-copy"
+                  ><span class="project-category"
+                    ><span
+                      data-en="Artificial intelligence"
+                      data-fr="Intelligence artificielle"
+                      >Intelligence artificielle</span
+                    ></span
+                  ><strong
+                    ><span
+                      data-en="Pixel-Level Visual Attribution for iRAG"
+                      data-fr="Attribution visuelle au niveau du pixel pour iRAG"
+                      >Attribution visuelle au niveau du pixel pour iRAG</span
+                    ></strong
+                  ><span class="project-description"
+                    ><span
+                      data-en="Understanding what AI sees."
+                      data-fr="Comprendre ce que voit l’IA."
+                      >Comprendre ce que voit l’IA.</span
+                    ></span
+                  ><span class="project-tech">VLM · iRAG</span></span
+                >
+              </button>
+            </article>
+            <article class="project-card" data-category="ai" data-project="5">
+              <button class="project-open" data-project-open="5" type="button">
+                <span aria-hidden="true" class="project-art art-5"
+                  ><span class="minimal-art">
+                    <span>Σ</span><small>Python · OR-Tools</small>
+                  </span>
+                  <span aria-hidden="true" class="project-plus">↗</span></span
+                ><span class="project-copy"
+                  ><span class="project-category"
+                    ><span
+                      data-en="Artificial intelligence"
+                      data-fr="Intelligence artificielle"
+                      >Intelligence artificielle</span
+                    ></span
+                  ><strong
+                    ><span
+                      data-en="Nutritional Planning"
+                      data-fr="Planification nutritionnelle"
+                      >Planification nutritionnelle</span
+                    ></strong
+                  ><span class="project-description"
+                    ><span
+                      data-en="Better meals, within constraints."
+                      data-fr="Mieux manger, sous contraintes."
+                      >Mieux manger, sous contraintes.</span
+                    ></span
+                  ><span class="project-tech">Python · OR-Tools</span></span
+                >
+              </button>
+            </article>
+            <article class="project-card" data-category="ai" data-project="6">
+              <button class="project-open" data-project-open="6" type="button">
+                <span aria-hidden="true" class="project-art art-6"
+                  ><span class="minimal-art">
+                    <span>◌</span><small>NetLogo</small>
+                  </span>
+                  <span aria-hidden="true" class="project-plus">↗</span></span
+                ><span class="project-copy"
+                  ><span class="project-category"
+                    ><span
+                      data-en="Artificial intelligence"
+                      data-fr="Intelligence artificielle"
+                      >Intelligence artificielle</span
+                    ></span
+                  ><strong
+                    ><span
+                      data-en="Multi-agent Modeling"
+                      data-fr="Modélisation multi-agents"
+                      >Modélisation multi-agents</span
+                    ></strong
+                  ><span class="project-description"
+                    ><span
+                      data-en="How ideas spread."
+                      data-fr="Quand les idées se propagent."
+                      >Quand les idées se propagent.</span
+                    ></span
+                  ><span class="project-tech">NetLogo</span></span
+                >
+              </button>
+            </article>
+            <article
+              class="project-card"
+              data-category="software"
+              data-project="7"
+            >
+              <button class="project-open" data-project-open="7" type="button">
+                <span aria-hidden="true" class="project-art art-7"
+                  ><span class="minimal-art">
+                    <span>{x}</span><small>Java · Quarkus · Redis</small>
+                  </span>
+                  <span aria-hidden="true" class="project-plus">↗</span></span
+                ><span class="project-copy"
+                  ><span class="project-category"
+                    ><span
+                      data-en="Software development"
+                      data-fr="Développement logiciel"
+                      >Développement logiciel</span
+                    ></span
+                  ><strong
+                    ><span data-en="TinyX / Epitweet" data-fr="TinyX / Epitweet"
+                      >TinyX / Epitweet</span
+                    ></strong
+                  ><span class="project-description"
+                    ><span
+                      data-en="Connecting, at scale."
+                      data-fr="Connecter, à grande échelle."
+                      >Connecter, à grande échelle.</span
+                    ></span
+                  ><span class="project-tech"
+                    >Java · Quarkus · Redis</span
+                  ></span
+                >
+              </button>
+            </article>
+            <article
+              class="project-card"
+              data-category="software"
+              data-project="8"
+            >
+              <button class="project-open" data-project-open="8" type="button">
+                <span aria-hidden="true" class="project-art art-8"
+                  ><span class="minimal-art">
+                    <span>API</span><small>Java · PostgreSQL</small>
+                  </span>
+                  <span aria-hidden="true" class="project-plus">↗</span></span
+                ><span class="project-copy"
+                  ><span class="project-category"
+                    ><span
+                      data-en="Software development"
+                      data-fr="Développement logiciel"
+                      >Développement logiciel</span
+                    ></span
+                  ><strong
+                    ><span data-en="Epibazaar" data-fr="Epibazaar"
+                      >Epibazaar</span
+                    ></strong
+                  ><span class="project-description"
+                    ><span
+                      data-en="The foundations of a world."
+                      data-fr="Les fondations d’un univers."
+                      >Les fondations d’un univers.</span
+                    ></span
+                  ><span class="project-tech">Java · PostgreSQL</span></span
+                >
+              </button>
+            </article>
+            <article
+              class="project-card"
+              data-category="software"
+              data-project="9"
+            >
+              <button class="project-open" data-project-open="9" type="button">
+                <span aria-hidden="true" class="project-art art-9"
+                  ><span class="minimal-art">
+                    <span>C++</span><small>C++ · Bison</small>
+                  </span>
+                  <span aria-hidden="true" class="project-plus">↗</span></span
+                ><span class="project-copy"
+                  ><span class="project-category"
+                    ><span
+                      data-en="Software development"
+                      data-fr="Développement logiciel"
+                      >Développement logiciel</span
+                    ></span
+                  ><strong
+                    ><span data-en="Tiger" data-fr="Tiger">Tiger</span></strong
+                  ><span class="project-description"
+                    ><span
+                      data-en="From language to execution."
+                      data-fr="Du langage à l’exécution."
+                      >Du langage à l’exécution.</span
+                    ></span
+                  ><span class="project-tech">C++ · Bison</span></span
+                >
+              </button>
+            </article>
+            <article
+              class="project-card"
+              data-category="software"
+              data-project="10"
+            >
+              <button class="project-open" data-project-open="10" type="button">
+                <span aria-hidden="true" class="project-art art-10"
+                  ><span class="minimal-art">
+                    <span>QR</span><small>Rust</small>
+                  </span>
+                  <span aria-hidden="true" class="project-plus">↗</span></span
+                ><span class="project-copy"
+                  ><span class="project-category"
+                    ><span
+                      data-en="Software development"
+                      data-fr="Développement logiciel"
+                      >Développement logiciel</span
+                    ></span
+                  ><strong
+                    ><span data-en="QRCodeur" data-fr="QRCodeur"
+                      >QRCodeur</span
+                    ></strong
+                  ><span class="project-description"
+                    ><span
+                      data-en="Encode. Decode. Simply."
+                      data-fr="Encoder. Décoder. Simplement."
+                      >Encoder. Décoder. Simplement.</span
+                    ></span
+                  ><span class="project-tech">Rust</span></span
+                >
+              </button>
+            </article>
+            <article class="project-card" data-category="ai" data-project="11">
+              <button class="project-open" data-project-open="11" type="button">
+                <span aria-hidden="true" class="project-art art-11"
+                  ><span class="minimal-art">
+                    <span>9×9</span><small>C · Réseaux de neurones</small>
+                  </span>
+                  <span aria-hidden="true" class="project-plus">↗</span></span
+                ><span class="project-copy"
+                  ><span class="project-category"
+                    ><span
+                      data-en="Artificial intelligence"
+                      data-fr="Intelligence artificielle"
+                      >Intelligence artificielle</span
+                    ></span
+                  ><strong
+                    ><span data-en="Sudoku Solver" data-fr="Sudoku Solver"
+                      >Sudoku Solver</span
+                    ></strong
+                  ><span class="project-description"
+                    ><span
+                      data-en="See a grid. Find the solution."
+                      data-fr="Voir une grille. Trouver la solution."
+                      >Voir une grille. Trouver la solution.</span
+                    ></span
+                  ><span class="project-tech"
+                    >C · Réseaux de neurones</span
+                  ></span
+                >
+              </button>
+            </article>
+          </div>
+          <p class="empty-projects" hidden="" role="status">
+            <span
+              data-en="No projects found. Try another keyword."
+              data-fr="Aucun projet trouvé. Essayez un autre mot-clé."
+              >Aucun projet trouvé. Essayez un autre mot-clé.</span
+            >
+          </p>
+          <div class="section-more">
+            <button
+              aria-expanded="false"
+              class="button button-outline"
+              id="more-projects"
+              type="button"
+            >
+              <span data-en="View all projects" data-fr="Voir tous les projets"
+                >Voir tous les projets</span
+              ><span class="count">12</span><span aria-hidden="true">↓</span>
+            </button>
+          </div>
+        </div>
+      </section>
+      <section class="about-section section-space container" id="parcours">
+        <div class="about-intro reveal">
+          <div>
+            <p class="eyebrow">
+              02 /
+              <span data-en="A LITTLE ABOUT ME" data-fr="UN PEU PLUS SUR MOI"
+                >UN PEU PLUS SUR MOI</span
+              >
+            </p>
+            <h2>
+              <span data-en="Always learning." data-fr="Apprendre sans cesse."
+                >Apprendre sans cesse.</span
+              ><br /><span
+                class="muted"
+                data-en="Building with purpose."
+                data-fr="Construire avec sens."
+                >Construire avec sens.</span
+              >
+            </h2>
+          </div>
+          <div class="about-copy">
+            <p>
+              <span
+                data-en="As a final-year EPITA student, I’m interested in the connections between artificial intelligence, data, and software engineering."
+                data-fr="Étudiant en dernière année à l’EPITA, je m’intéresse à ce qui relie l’intelligence artificielle, la donnée et le développement logiciel."
+                >Étudiant en dernière année à l’EPITA, je m’intéresse à ce qui
+                relie l’intelligence artificielle, la donnée et le développement
+                logiciel.</span
+              >
+            </p>
+            <p>
+              <span
+                data-en="From machine learning models to interfaces, I enjoy understanding systems as a whole and bringing useful ideas to life."
+                data-fr="Du modèle de machine learning à l’interface, j’aime comprendre les systèmes dans leur ensemble et donner vie à des idées utiles."
+                >Du modèle de machine learning à l’interface, j’aime comprendre
+                les systèmes dans leur ensemble et donner vie à des idées
+                utiles.</span
+              >
+            </p>
+            <a class="inline-link" href="#contact"
+              ><span data-en="Let’s talk" data-fr="Échangeons ensemble"
+                >Échangeons ensemble</span
+              ><span aria-hidden="true">↗</span></a
+            >
+          </div>
+        </div>
+        <div class="skills-grid" id="competences">
+          <article class="skill-card reveal">
+            <span aria-hidden="true" class="skill-symbol">✳</span>
+            <h3>Intelligence artificielle</h3>
+            <p>
+              Python · PyTorch · TensorFlow<br />NumPy · Pandas · SciPy · PySR
+            </p>
+          </article>
+          <article class="skill-card reveal">
+            <span aria-hidden="true" class="skill-symbol">⌘</span>
+            <h3>Software engineering</h3>
+            <p>
+              React · JavaScript · Django · Node.js · Quarkus<br />Java · C++ ·
+              C · C# · Rust · OCaml · SQL
+            </p>
+          </article>
+          <article class="skill-card reveal">
+            <span aria-hidden="true" class="skill-symbol">◈</span>
+            <h3>Data &amp; infrastructure</h3>
+            <p>
+              Docker · Kubernetes · GitLab CI · Kafka<br />Redis · PostgreSQL ·
+              MongoDB · Neo4j
+            </p>
+          </article>
+        </div>
+        <div class="journey">
+          <div aria-label="Parcours" class="journey-tabs" role="tablist">
+            <button
+              aria-controls="experience"
+              aria-selected="true"
+              id="tab-experience"
+              role="tab"
+              tabindex="0"
+              type="button"
+            >
+              <span data-en="Experience" data-fr="Expérience"
+                >Expérience</span
+              ></button
+            ><button
+              aria-controls="education"
+              aria-selected="false"
+              id="tab-education"
+              role="tab"
+              tabindex="-1"
+              type="button"
+            >
+              <span data-en="Education" data-fr="Formation">Formation</span>
+            </button>
+          </div>
+          <div aria-labelledby="tab-experience" id="experience" role="tabpanel">
+            <details class="journey-item">
+              <summary>
+                <span class="journey-date"
+                  ><span
+                    data-en="Feb. 2026 - present"
+                    data-fr="Févr. 2026 - aujourd'hui"
+                    >Févr. 2026 - aujourd'hui</span
+                  ></span
+                ><span class="journey-main"
+                  ><span aria-hidden="true" class="company-monogram">CF</span
+                  ><span
+                    ><strong
+                      ><span
+                        data-en="Full-Stack Developer"
+                        data-fr="Full-Stack Developer"
+                        >Full-Stack Developer</span
+                      ></strong
+                    ><span
+                      class="journey-subtitle"
+                      data-en="CONTROL F · Fixed-term contract"
+                      data-fr="CONTROL F · CDD"
+                      >CONTROL F · CDD</span
+                    ></span
+                  ></span
+                ><span aria-hidden="true" class="disclosure-icon">+</span>
+              </summary>
+              <div class="journey-detail">
+                <ul>
+                  <li
+                    data-en="Built CRUD systems for managing application data."
+                    data-fr="Réalisation de systèmes CRUD pour la
+                          gestion des données applicatives."
+                  >
+                    Réalisation de systèmes CRUD pour la gestion des données
+                    applicatives.
                   </li>
-                  <li>
-                    Data & cloud : Introduction au Data Engineering, Python pour
-                    le Big Data avec Pandas, Microsoft Azure et Video
-                    Processing.
+                  <li
+                    data-en="Maintained the codebase through code reviews and merge request management."
+                    data-fr="Maintenance de la codebase avec revues de code et
+                          gestion des merge requests."
+                  >
+                    Maintenance de la codebase avec revues de code et gestion
+                    des merge requests.
                   </li>
-                  <li>
-                    Mod&eacute;lisation avanc&eacute;e : Recommender System /
-                    Matrix Factorization, Optimisation Convexe, Programmation
-                    Par Contraintes, Bay&eacute;sien & Causalit&eacute;.
+                  <li
+                    data-en="Worked on the Kubernetes environment: pod access, migration runs, service restarts."
+                    data-fr="Interventions sur l'environnement Kubernetes :
+                          connexion aux pods, exécution de migrations,
+                          redémarrage de services."
+                  >
+                    Interventions sur l'environnement Kubernetes : connexion aux
+                    pods, exécution de migrations, redémarrage de services.
+                  </li>
+                  <li
+                    data-en="Developed APIs with Django and built data visualization charts with Recharts."
+                    data-fr="Développement d'API avec Django et
+                          création de graphiques de visualisation de
+                          données avec Recharts."
+                  >
+                    Développement d'API avec Django et création de graphiques de
+                    visualisation de données avec Recharts.
+                  </li>
+                  <li
+                    data-en="Technologies used: React.js, Django, Kubernetes, AWS, Git, JavaScript."
+                    data-fr="Technologies utilisées : React.js, Django,
+                          Kubernetes, AWS, Git, JavaScript."
+                  >
+                    Technologies utilisées : React.js, Django, Kubernetes, AWS,
+                    Git, JavaScript.
                   </li>
                 </ul>
-                <p class="timeline-place">Paris, France</p>
-                <p class="timeline-cert">
-                  TOEIC <strong>870</strong> - anglais professionnel
+                <p
+                  data-en="Paris, France · Hybrid"
+                  data-fr="Paris, France · Hybride"
+                >
+                  Paris, France · Hybride
                 </p>
-              </article>
-              <article>
-                <span>2026</span>
-                <img
-                  class="timeline-logo"
-                  src="assets/ccu.png"
-                  alt="Logo National Chung Cheng University"
-                />
-                <h3>National Chung Cheng University</h3>
-                <p class="timeline-meta">Semestre d'&eacute;change</p>
-                <ul class="timeline-points">
-                  <li>
+              </div>
+            </details>
+            <details class="journey-item">
+              <summary>
+                <span class="journey-date"
+                  ><span
+                    data-en="Sept. 2025 - Jan. 2026"
+                    data-fr="Sept. 2025 - Janv. 2026"
+                    >Sept. 2025 - Janv. 2026</span
+                  ></span
+                ><span class="journey-main"
+                  ><span aria-hidden="true" class="company-monogram">CF</span
+                  ><span
+                    ><strong
+                      ><span
+                        data-en="Front-End Developer"
+                        data-fr="Front-End Developer"
+                        >Front-End Developer</span
+                      ></strong
+                    ><span
+                      class="journey-subtitle"
+                      data-en="CONTROL F · Internship"
+                      data-fr="CONTROL F · Stage"
+                      >CONTROL F · Stage</span
+                    ></span
+                  ></span
+                ><span aria-hidden="true" class="disclosure-icon">+</span>
+              </summary>
+              <div class="journey-detail">
+                <ul>
+                  <li
+                    data-en="Developed interactive dashboards with Shadcn/UI and React.js."
+                    data-fr="Développement de dashboards interactifs avec
+                          Shadcn/UI et React.js."
+                  >
+                    Développement de dashboards interactifs avec Shadcn/UI et
+                    React.js.
+                  </li>
+                  <li
+                    data-en="Migrated and maintained the web pipeline as well as the front-end codebase."
+                    data-fr="Migration et maintenance de la pipeline web ainsi que
+                          de la codebase front-end."
+                  >
+                    Migration et maintenance de la pipeline web ainsi que de la
+                    codebase front-end.
+                  </li>
+                  <li
+                    data-en="Designed and integrated a landing page from Figma mockups."
+                    data-fr="Conception et intégration d'une landing page
+                          à partir de maquettes Figma."
+                  >
+                    Conception et intégration d'une landing page à partir de
+                    maquettes Figma.
+                  </li>
+                  <li
+                    data-en="Tools used: JavaScript, React.js, Figma, Jira, Git."
+                    data-fr="Outils utilisés : JavaScript, React.js, Figma,
+                          Jira, Git."
+                  >
+                    Outils utilisés : JavaScript, React.js, Figma, Jira, Git.
+                  </li>
+                </ul>
+                <p
+                  data-en="Paris and surrounding area · Hybrid"
+                  data-fr="Paris et périphérie ·
+                        Hybride"
+                >
+                  Paris et périphérie · Hybride
+                </p>
+              </div>
+            </details>
+            <details class="journey-item">
+              <summary>
+                <span class="journey-date"
+                  ><span
+                    data-en="Jun. 2023 - Jul. 2023"
+                    data-fr="Juin 2023 - Juillet 2023"
+                    >Juin 2023 - Juillet 2023</span
+                  ></span
+                ><span class="journey-main"
+                  ><span aria-hidden="true" class="company-monogram">SOS</span
+                  ><span
+                    ><strong
+                      ><span data-en="QSE Intern" data-fr="QSE Intern"
+                        >QSE Intern</span
+                      ></strong
+                    ><span
+                      class="journey-subtitle"
+                      data-en="Groupe SOS Seniors · Groupe SOS Seniors · Internship"
+                      data-fr="Groupe SOS Seniors · Groupe SOS Seniors · Stage"
+                      >Groupe SOS Seniors · Groupe SOS Seniors · Stage</span
+                    ></span
+                  ></span
+                ><span aria-hidden="true" class="disclosure-icon">+</span>
+              </summary>
+              <div class="journey-detail">
+                <ul>
+                  <li
+                    data-en="Analyzed the energy consumption of healthcare and social care facilities."
+                    data-fr="Analyser les consommations énergétiques
+                          des établissements médico-sociaux."
+                  >
+                    Analyser les consommations énergétiques des établissements
+                    médico-sociaux.
+                  </li>
+                  <li
+                    data-en="Created interactive awareness materials about safety and sustainable development."
+                    data-fr="Créer des supports interactifs de
+                          sensibilisation à la sécurité et
+                          au développement durable."
+                  >
+                    Créer des supports interactifs de sensibilisation à la
+                    sécurité et au développement durable.
+                  </li>
+                </ul>
+                <p
+                  data-en="Metz, Grand Est, France · On-site"
+                  data-fr="Metz, Grand Est, France · Sur site"
+                >
+                  Metz, Grand Est, France · Sur site
+                </p>
+              </div>
+            </details>
+            <details class="journey-item">
+              <summary>
+                <span class="journey-date"
+                  ><span
+                    data-en="Jan. 2022 - Jun. 2022"
+                    data-fr="Janvier 2022 - Juin 2022"
+                    >Janvier 2022 - Juin 2022</span
+                  ></span
+                ><span class="journey-main"
+                  ><span aria-hidden="true" class="company-monogram">↗</span
+                  ><span
+                    ><strong
+                      ><span
+                        data-en="Volunteer educational support"
+                        data-fr="Aide éducative bénévole"
+                        >Aide éducative bénévole</span
+                      ></strong
+                    ><span
+                      class="journey-subtitle"
+                      data-en="Bénévolat · Mathematics support for first-year students"
+                      data-fr="Bénévolat · Assistance aux élèves de première
+                        en mathématiques"
+                      >Bénévolat · Assistance aux élèves de première en
+                      mathématiques</span
+                    ></span
+                  ></span
+                ><span aria-hidden="true" class="disclosure-icon">+</span>
+              </summary>
+              <div class="journey-detail">
+                <ul>
+                  <li
+                    data-en="Helped first-year students prepare for exams."
+                    data-fr="Aider aux élèves de première
+                          à la préparation des examens."
+                  >
+                    Aider aux élèves de première à la préparation des examens.
+                  </li>
+                  <li
+                    data-en="Strengthened their problem-solving methodology."
+                    data-fr="Renforcer leur méthodologie de
+                          résolution de problèmes."
+                  >
+                    Renforcer leur méthodologie de résolution de problèmes.
+                  </li>
+                </ul>
+                <p
+                  data-en="Metz, France · On-site"
+                  data-fr="Metz, France · Sur site"
+                >
+                  Metz, France · Sur site
+                </p>
+              </div>
+            </details>
+          </div>
+          <div
+            aria-labelledby="tab-education"
+            hidden=""
+            id="education"
+            role="tabpanel"
+          >
+            <details class="journey-item">
+              <summary>
+                <span class="journey-date"
+                  ><span
+                    data-en="Sept 2022 - present"
+                    data-fr="Sept 2022 - aujourd'hui"
+                    >Sept 2022 - aujourd'hui</span
+                  ></span
+                ><span class="journey-main"
+                  ><img alt="" loading="lazy" src="assets/Epita.png" /><span
+                    ><strong>EPITA - École d'ingénieur en informatique</strong
+                    ><span
+                      class="journey-subtitle"
+                      data-en="GPA 3.7, final-year student"
+                      data-fr="GPA 3.7, étudiant en dernière année"
+                      >GPA 3.7, étudiant en dernière année</span
+                    ></span
+                  ></span
+                ><span aria-hidden="true" class="disclosure-icon">+</span>
+              </summary>
+              <div class="journey-detail">
+                <ul>
+                  <li
+                    data-en="Artificial intelligence: Fundamentals for Machine Learning, Introduction to neural networks, Natural Language Processing, Multi-Agent Systems and symbolic AI."
+                    data-fr="Intelligence artificielle : Fondamentaux pour le Machine
+                    Learning, Introduction aux réseaux de neurones,
+                    Natural Language Processing, Systèmes Multi-Agents et
+                    IA symbolique."
+                  >
+                    Intelligence artificielle : Fondamentaux pour le Machine
+                    Learning, Introduction aux réseaux de neurones, Natural
+                    Language Processing, Systèmes Multi-Agents et IA symbolique.
+                  </li>
+                  <li
+                    data-en="Data &amp; cloud: Introduction to Data Engineering, Python for Big Data with Pandas, Microsoft Azure and Video Processing."
+                    data-fr="Data &amp; cloud : Introduction au Data Engineering, Python pour
+                    le Big Data avec Pandas, Microsoft Azure et Video
+                    Processing."
+                  >
+                    Data &amp; cloud : Introduction au Data Engineering, Python
+                    pour le Big Data avec Pandas, Microsoft Azure et Video
+                    Processing.
+                  </li>
+                  <li
+                    data-en="Advanced modeling: Recommender Systems / Matrix Factorization, Convex Optimization, Constraint Programming, Bayesian &amp; Causality."
+                    data-fr="Modélisation avancée : Recommender System /
+                    Matrix Factorization, Optimisation Convexe, Programmation
+                    Par Contraintes, Bayésien &amp; Causalité."
+                  >
+                    Modélisation avancée : Recommender System / Matrix
+                    Factorization, Optimisation Convexe, Programmation Par
+                    Contraintes, Bayésien &amp; Causalité.
+                  </li>
+                </ul>
+                <p data-en="Paris, France" data-fr="Paris, France">
+                  Paris, France
+                </p>
+                <p
+                  data-en="TOEIC 870 · Professional English"
+                  data-fr="TOEIC 870 - anglais professionnel"
+                >
+                  TOEIC 870 - anglais professionnel
+                </p>
+              </div>
+            </details>
+            <details class="journey-item">
+              <summary>
+                <span class="journey-date"
+                  ><span data-en="2026" data-fr="2026">2026</span></span
+                ><span class="journey-main"
+                  ><img alt="" loading="lazy" src="assets/ccu.png" /><span
+                    ><strong>National Chung Cheng University</strong
+                    ><span
+                      class="journey-subtitle"
+                      data-en="Exchange semester"
+                      data-fr="Semestre d'échange"
+                      >Semestre d'échange</span
+                    ></span
+                  ></span
+                ><span aria-hidden="true" class="disclosure-icon">+</span>
+              </summary>
+              <div class="journey-detail">
+                <ul>
+                  <li
+                    data-en="Content: Artificial Intelligence, Robotics, Data Science."
+                    data-fr="Contenu : Artificial Intelligence, Robotics, Data Science."
+                  >
                     Contenu : Artificial Intelligence, Robotics, Data Science.
                   </li>
                 </ul>
-                <p class="timeline-place">Minxiong, Taiwan</p>
-              </article>
-              <article>
-                <span>Sept 2019 - Juin 2022</span>
-                <img
-                  class="timeline-logo"
-                  src="assets/fabert.svg"
-                  alt="Logo Lyc&eacute;e Fabert"
-                />
-                <h3>Lyc&eacute;e Fabert</h3>
-                <ul class="timeline-points">
-                  <li>
-                    Obtention du baccalaur&eacute;at sp&eacute;cialit&eacute;s
-                    Math&eacute;matiques, Physique-chimie et Informatique,
-                    mention Tr&egrave;s Bien.
+                <p data-en="Minxiong, Taiwan" data-fr="Minxiong, Taiwan">
+                  Minxiong, Taiwan
+                </p>
+              </div>
+            </details>
+            <details class="journey-item">
+              <summary>
+                <span class="journey-date"
+                  ><span
+                    data-en="Sept 2019 - Jun 2022"
+                    data-fr="Sept 2019 - Juin 2022"
+                    >Sept 2019 - Juin 2022</span
+                  ></span
+                ><span class="journey-main"
+                  ><img alt="" loading="lazy" src="assets/fabert.svg" /><span
+                    ><strong>Lycée Fabert</strong
+                    ><span
+                      class="journey-subtitle"
+                      data-en=""
+                      data-fr=""
+                    ></span></span></span
+                ><span aria-hidden="true" class="disclosure-icon">+</span>
+              </summary>
+              <div class="journey-detail">
+                <ul>
+                  <li
+                    data-en="Earned the French Baccalauréat with Mathematics, Physics-Chemistry and Computer Science specialties, with highest honors."
+                    data-fr="Obtention du baccalauréat spécialités
+                    Mathématiques, Physique-chimie et Informatique,
+                    mention Très Bien."
+                  >
+                    Obtention du baccalauréat spécialités Mathématiques,
+                    Physique-chimie et Informatique, mention Très Bien.
                   </li>
-                  <li>
-                    Langues : Fran&ccedil;ais courant, Anglais niveau avancé,
-                    Italien niveau de base.
+                  <li
+                    data-en="Languages: French native, English advanced, Italian basic."
+                    data-fr="Langues : Français courant, Anglais niveau avancé,
+                    Italien niveau de base."
+                  >
+                    Langues : Français courant, Anglais niveau avancé, Italien
+                    niveau de base.
                   </li>
                 </ul>
-                <p class="timeline-place">Metz, France</p>
-              </article>
+                <p data-en="Metz, France" data-fr="Metz, France">
+                  Metz, France
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+      <section class="photos-section section-space" id="photos">
+        <div class="container">
+          <div class="section-heading reveal">
+            <div>
+              <p class="eyebrow">
+                03 /
+                <span data-en="AWAY FROM THE KEYBOARD" data-fr="LOIN DU CLAVIER"
+                  >LOIN DU CLAVIER</span
+                >
+              </p>
+              <h2>
+                <span
+                  data-en="A different perspective."
+                  data-fr="Un autre regard."
+                  >Un autre regard.</span
+                >
+              </h2>
             </div>
-          </section>
-
-          <section class="section-block editorial-section" id="experience">
-            <p class="section-kicker">Exp&eacute;riences professionnelles</p>
-            <h2>Terrain professionnel.</h2>
-            <div class="experience-list">
-              <article class="experience-company is-grouped">
-                <div class="company-logo company-logo-image">
-                  <img src="assets/LogoControlF.png" alt="Logo CONTROL F" />
-                  <span class="company-logo-initials" aria-hidden="true">CF</span>
-                </div>
-                <div class="company-body">
-                  <div class="company-head">
-                    <h3>CONTROL F</h3>
-                    <span>9 mois</span>
-                  </div>
-                  <div class="role-list">
-                    <section class="experience-role">
-                      <h4>Full-Stack Developer</h4>
-                      <p>CDD</p>
-                      <span
-                        >F&eacute;vr. 2026 - aujourd'hui &middot; 6 mois</span
-                      >
-                      <span>Paris, France &middot; Hybride</span>
-                      <ul class="role-points">
-                        <li>
-                          R&eacute;alisation de syst&egrave;mes CRUD pour la
-                          gestion des donn&eacute;es applicatives.
-                        </li>
-                        <li>
-                          Maintenance de la codebase avec revues de code et
-                          gestion des merge requests.
-                        </li>
-                        <li>
-                          Interventions sur l'environnement Kubernetes :
-                          connexion aux pods, ex&eacute;cution de migrations,
-                          red&eacute;marrage de services.
-                        </li>
-                        <li>
-                          D&eacute;veloppement d'API avec Django et
-                          cr&eacute;ation de graphiques de visualisation de
-                          donn&eacute;es avec Recharts.
-                        </li>
-                        <li>
-                          Technologies utilis&eacute;es : React.js, Django,
-                          Kubernetes, AWS, Git, JavaScript.
-                        </li>
-                      </ul>
-                    </section>
-                    <section class="experience-role">
-                      <h4>Front-End Developer</h4>
-                      <p>Stage</p>
-                      <span>Sept. 2025 - Janv. 2026 &middot; 5 mois</span>
-                      <span
-                        >Paris et p&eacute;riph&eacute;rie &middot;
-                        Hybride</span
-                      >
-                      <ul class="role-points">
-                        <li>
-                          D&eacute;veloppement de dashboards interactifs avec
-                          Shadcn/UI et React.js.
-                        </li>
-                        <li>
-                          Migration et maintenance de la pipeline web ainsi que
-                          de la codebase front-end.
-                        </li>
-                        <li>
-                          Conception et int&eacute;gration d'une landing page
-                          &agrave; partir de maquettes Figma.
-                        </li>
-                        <li>
-                          Outils utilis&eacute;s : JavaScript, React.js, Figma,
-                          Jira, Git.
-                        </li>
-                      </ul>
-                    </section>
-                  </div>
-                </div>
-              </article>
-
-              <article class="experience-company">
-                <div class="company-logo company-logo-image">
-                  <img
-                    src="assets/Groupe-SOS-Seniors.png"
-                    alt="Logo Groupe SOS Seniors"
-                  />
-                  <span class="company-logo-initials" aria-hidden="true">GS</span>
-                </div>
-                <div class="company-body">
-                  <div class="role-list">
-                    <section class="experience-role">
-                      <h4>QSE Intern</h4>
-                      <p>Groupe SOS Seniors &middot; Stage</p>
-                      <span>Juin 2023 - Juillet 2023 &middot; 2 mois</span>
-                      <span>Metz, Grand Est, France &middot; Sur site</span>
-                      <ul class="role-points">
-                        <li>
-                          Analyser les consommations &eacute;nerg&eacute;tiques
-                          des &eacute;tablissements m&eacute;dico-sociaux.
-                        </li>
-                        <li>
-                          Cr&eacute;er des supports interactifs de
-                          sensibilisation &agrave; la s&eacute;curit&eacute; et
-                          au d&eacute;veloppement durable.
-                        </li>
-                      </ul>
-                    </section>
-                  </div>
-                </div>
-              </article>
-
-              <article class="experience-company">
-                <div class="company-logo company-logo-light" aria-hidden="true">
-                  AE
-                </div>
-                <div class="company-body">
-                  <div class="role-list">
-                    <section class="experience-role">
-                      <h4>Aide &eacute;ducative b&eacute;n&eacute;vole</h4>
-                      <p>
-                        Assistance aux &eacute;l&egrave;ves de premi&egrave;re
-                        en math&eacute;matiques
-                      </p>
-                      <span>Janvier 2022 - Juin 2022 &middot; 6 mois</span>
-                      <span>Metz, France &middot; Sur site</span>
-                      <ul class="role-points">
-                        <li>
-                          Aider aux &eacute;l&egrave;ves de premi&egrave;re
-                          &agrave; la pr&eacute;paration des examens.
-                        </li>
-                        <li>
-                          Renforcer leur m&eacute;thodologie de
-                          r&eacute;solution de probl&egrave;mes.
-                        </li>
-                      </ul>
-                    </section>
-                  </div>
-                </div>
-              </article>
+            <p class="section-description">
+              <span
+                data-en="Cities, landscapes, moments. My travel journal, captured on iPhone."
+                data-fr="Des villes, des paysages, des instants. Mon carnet de voyage, photographié à l’iPhone."
+                >Des villes, des paysages, des instants. Mon carnet de voyage,
+                photographié à l’iPhone.</span
+              >
+            </p>
+          </div>
+          <div class="photo-toolbar">
+            <div
+              aria-label="Filtrer par destination"
+              class="photo-filters"
+              role="group"
+            >
+              <button aria-pressed="true" data-destination="all" type="button">
+                <span data-en="View all" data-fr="Tout voir"
+                  >Tout voir</span
+                ></button
+              ><button
+                aria-pressed="false"
+                data-destination="Philippines"
+                type="button"
+              >
+                <span data-en="Philippines" data-fr="Philippines"
+                  >Philippines</span
+                ></button
+              ><button
+                aria-pressed="false"
+                data-destination="Seoul"
+                type="button"
+              >
+                <span data-en="Seoul" data-fr="Séoul">Séoul</span></button
+              ><button
+                aria-pressed="false"
+                data-destination="Danemark"
+                type="button"
+              >
+                <span data-en="Denmark" data-fr="Danemark"
+                  >Danemark</span
+                ></button
+              ><button
+                aria-pressed="false"
+                data-destination="Taiwan"
+                type="button"
+              >
+                <span data-en="Taiwan" data-fr="Taïwan">Taïwan</span></button
+              ><button
+                aria-pressed="false"
+                data-destination="Paris"
+                type="button"
+              >
+                <span data-en="Paris" data-fr="Paris">Paris</span></button
+              ><button
+                aria-pressed="false"
+                data-destination="Bangkok"
+                type="button"
+              >
+                <span data-en="Bangkok" data-fr="Bangkok">Bangkok</span>
+              </button>
             </div>
-          </section>
-
-          <section class="section-block contact-section" id="contact">
-            <p class="section-kicker">Contact</p>
+            <span aria-live="polite" class="photo-count"></span>
+          </div>
+          <div class="photo-grid" id="photo-grid"></div>
+          <div class="section-more">
+            <button
+              class="button button-outline"
+              id="more-photos"
+              type="button"
+            >
+              <span
+                data-en="A few more moments"
+                data-fr="Encore quelques instants"
+                >Encore quelques instants</span
+              ><span aria-hidden="true">↓</span>
+            </button>
+          </div>
+          <noscript
+            ><p>
+              Activez JavaScript pour parcourir la galerie photo.
+            </p></noscript
+          >
+        </div>
+      </section>
+      <section class="contact-section container" id="contact">
+        <div class="contact-card">
+          <div class="contact-heading">
+            <p class="eyebrow">
+              04 /
+              <span
+                data-en="LET’S START A CONVERSATION"
+                data-fr="ET SI ON ÉCHANGEAIT ?"
+                >ET SI ON ÉCHANGEAIT ?</span
+              >
+            </p>
             <h2>
-              Discutons d'un stage, d'un projet IA ou d'une opportunit&eacute;
-              logicielle.
+              <span data-en="Good ideas" data-fr="Les belles idées"
+                >Les belles idées</span
+              ><br /><span
+                class="contact-muted"
+                data-en="start with a hello."
+                data-fr="commencent par un bonjour."
+                >commencent par un bonjour.</span
+              >
             </h2>
-            <div class="contact-actions">
-              <a
-                class="button button-dark"
-                href="mailto:mehdi.robardet@epita.fr"
+            <p>
+              <span
+                data-en="A project, an internship, an opportunity, or just a chat? My inbox is open."
+                data-fr="Un projet, un stage, une opportunité ou simplement envie de discuter ? Ma boîte mail est ouverte."
+                >Un projet, un stage, une opportunité ou simplement envie de
+                discuter ? Ma boîte mail est ouverte.</span
               >
-                mehdi.robardet@epita.fr
-              </a>
-              <a
-                class="text-link"
-                href="https://www.linkedin.com/in/mehdi-robardet/"
+            </p>
+          </div>
+          <div class="email-row">
+            <a href="mailto:mehdi.robardet@epita.fr"
+              >mehdi.robardet@epita.fr<span aria-hidden="true">↗</span></a
+            ><button
+              aria-label="Copier l’adresse email"
+              class="copy-email"
+              type="button"
+            >
+              <svg aria-hidden="true" viewbox="0 0 24 24">
+                <rect height="12" rx="3" width="12" x="8" y="8"></rect>
+                <path
+                  d="M15 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3"
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <div class="social-links">
+            <a
+              href="https://www.linkedin.com/in/mehdi-robardet/"
+              rel="noopener noreferrer"
+              target="_blank"
+              ><span aria-hidden="true" class="social-icon">in</span
+              ><span>LinkedIn<small>Mehdi Robardet</small></span
+              ><span aria-hidden="true" class="social-arrow">↗</span></a
+            ><a
+              href="https://github.com/akiolua"
+              rel="noopener noreferrer"
+              target="_blank"
+              ><svg
+                aria-hidden="true"
+                class="social-icon"
+                fill="currentColor"
+                viewbox="0 0 24 24"
               >
-                LinkedIn
-              </a>
-            </div>
-          </section>
-        </article>
-      </main>
-    </div>
-
-    <script src="script.js"></script>
+                <path
+                  d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.86c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.64.35-1.08.64-1.33-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.03a9.6 9.6 0 0 1 5 0c1.91-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.84-2.34 4.69-4.58 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"
+                ></path></svg
+              ><span>GitHub<small>@akiolua</small></span
+              ><span aria-hidden="true" class="social-arrow">↗</span></a
+            >
+          </div>
+          <span aria-hidden="true" class="contact-orb"></span>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer container">
+      <a class="wordmark" href="#accueil">mr<span>.</span></a>
+      <p>© <span id="year">2026</span> Mehdi Robardet</p>
+      <a class="back-top" href="#accueil"
+        ><span data-en="Back to top" data-fr="Retour en haut"
+          >Retour en haut</span
+        >
+        ↑</a
+      >
+    </footer>
+    <dialog
+      aria-labelledby="dialog-title"
+      class="project-dialog"
+      id="project-dialog"
+    >
+      <button aria-label="Fermer" class="dialog-close" type="button">×</button>
+      <div id="project-detail"></div>
+    </dialog>
+    <dialog aria-label="Visionneuse photo" class="lightbox" id="lightbox">
+      <div class="lightbox-top">
+        <span id="lightbox-counter"></span
+        ><button aria-label="Fermer" class="dialog-close" type="button">
+          ×
+        </button>
+      </div>
+      <button aria-label="Photo précédente" class="lightbox-prev" type="button">
+        ←
+      </button>
+      <figure>
+        <img alt="" id="lightbox-image" />
+        <figcaption id="lightbox-caption"></figcaption>
+      </figure>
+      <button aria-label="Photo suivante" class="lightbox-next" type="button">
+        →
+      </button>
+    </dialog>
+    <div aria-live="polite" class="toast" role="status"></div>
   </body>
 </html>
