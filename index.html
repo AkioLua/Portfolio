@@ -116,7 +116,7 @@
             >Étudiant à l’EPITA</span
           >
         </div>
-        <h1>
+        <h1 data-text-motion="hero">
           <span data-en="A curious mind." data-fr="Un esprit curieux."
             >Un esprit curieux.</span
           ><span
@@ -187,7 +187,7 @@
                   >LA CURIOSITÉ EN PRATIQUE</span
                 >
               </p>
-              <h2>
+              <h2 data-text-motion="section">
                 <span
                   data-en="Think. Build. Make it real."
                   data-fr="Pensé. Codé. Concrétisé."
@@ -665,7 +665,7 @@
                 >UN PEU PLUS SUR MOI</span
               >
             </p>
-            <h2>
+            <h2 data-text-motion="section">
               <span data-en="Always learning." data-fr="Apprendre sans cesse."
                 >Apprendre sans cesse.</span
               ><br /><span
@@ -1204,7 +1204,7 @@
                   >LOIN DU CLAVIER</span
                 >
               </p>
-              <h2>
+              <h2 data-text-motion="section">
                 <span
                   data-en="A different perspective."
                   data-fr="Un autre regard."
@@ -1275,7 +1275,9 @@
             </div>
             <span aria-live="polite" class="photo-count"></span>
           </div>
-          <div class="photo-grid" id="photo-grid"></div>
+          <div class="photo-viewport" aria-busy="false">
+            <div class="photo-grid" id="photo-grid"></div>
+          </div>
           <div class="section-more">
             <button
               class="button button-outline"
@@ -1298,7 +1300,7 @@
       </section>
       <section class="contact-section container" id="contact">
         <div class="contact-card">
-          <div class="contact-heading">
+          <div class="contact-heading reveal">
             <p class="eyebrow">
               04 /
               <span
@@ -1307,7 +1309,7 @@
                 >ET SI ON ÉCHANGEAIT ?</span
               >
             </p>
-            <h2>
+            <h2 data-text-motion="section">
               <span data-en="Good ideas" data-fr="Les belles idées"
                 >Les belles idées</span
               ><br /><span

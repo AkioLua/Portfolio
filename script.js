@@ -39,6 +39,10 @@
   let photoAnimations = [];
   let lightboxClosing = false;
   let lightboxCloseAnimation = null;
+  let textMotionObserver = null;
+  let galleryRequestId = 0;
+  let galleryTransitionId = 0;
+  let galleryAnimations = [];
   const t = (fr, en) => (language === "fr" ? fr : en);
   const normalize = (value) =>
     value
@@ -159,12 +163,14 @@
     setMenu(!menu.hidden);
     applyTheme();
     updateProjects();
+    resetGalleryRequest();
     renderPhotos();
     if (projectDialog.open && selectedProject !== null)
       renderProjectDetail(selectedProject);
     if (lightbox.open) renderLightbox();
     settleTabTransition();
     syncTabIndicator();
+    prepareTextMotion();
   }
 
   $(".language-toggle").addEventListener("click", () => {
@@ -536,12 +542,21 @@
         button = node("button", "photo-card");
         button.type = "button";
         const img = node("img");
-        img.src = photo.thumb;
         img.width = photo.width;
         img.height = photo.height;
         img.loading = "lazy";
         img.decoding = "async";
         img.draggable = false;
+        img.addEventListener("load", async () => {
+          try {
+            await img.decode();
+          } catch {
+            /* A loaded image can still be displayed. */
+          }
+          img.classList.add("is-loaded");
+        });
+        img.src = photo.thumb;
+        if (img.complete && img.naturalWidth) img.classList.add("is-loaded");
         const label = node("span", "photo-label");
         label.append(node("span"), node("span", "", "↗"));
         label.setAttribute("aria-hidden", "true");
@@ -578,33 +593,158 @@
     [...grid.children].forEach((card) => {
       if (!wanted.has(card)) card.remove();
     });
+    let enteringIndex = 0;
     cards.forEach((card, index) => {
       if (grid.children[index] === card) return;
-      if (!card.isConnected) card.classList.add("is-new");
+      if (!card.isConnected) {
+        card.style.setProperty(
+          "--photo-delay",
+          `${Math.min(enteringIndex++ * 35, 210)}ms`,
+        );
+        card.classList.add("is-new");
+      }
       grid.insertBefore(card, grid.children[index] ?? null);
     });
     $(".photo-count").textContent =
       `${Math.min(photoLimit, photos.length)} / ${photos.length} photos`;
     $("#more-photos").hidden = photoLimit >= photos.length;
   }
-  $$("[data-destination]").forEach((button) =>
-    button.addEventListener("click", () => {
-      if (destination === button.dataset.destination) return;
-      destination = button.dataset.destination;
-      photoLimit = 8;
+  function cancelGalleryAnimations() {
+    galleryTransitionId++;
+    galleryAnimations.forEach((animation) => animation.cancel());
+    galleryAnimations = [];
+    $$(".gallery-outgoing").forEach((grid) => grid.remove());
+    $(".photo-viewport").classList.remove("is-changing");
+    if ($(".photo-viewport").getAttribute("aria-busy") !== "true")
+      $("#more-photos").disabled = false;
+  }
+
+  function resetGalleryRequest() {
+    galleryRequestId++;
+    cancelGalleryAnimations();
+    const viewport = $(".photo-viewport");
+    viewport.setAttribute("aria-busy", "false");
+    viewport.inert = false;
+    $("#more-photos").disabled = false;
+    $$("[data-destination]").forEach((button) => {
+      button.setAttribute(
+        "aria-pressed",
+        String(button.dataset.destination === destination),
+      );
+    });
+  }
+
+  function animateGallery(height, outgoing = null) {
+    const viewport = $(".photo-viewport");
+    const grid = $("#photo-grid");
+    if (reducedMotion.matches || !viewport.animate) return;
+    const transition = galleryTransitionId;
+    viewport.classList.add("is-changing");
+    $("#more-photos").disabled = true;
+    galleryAnimations = [
+      viewport.animate(
+        [
+          { height: `${height}px` },
+          { height: `${grid.getBoundingClientRect().height}px` },
+        ],
+        { duration: 440, easing: "cubic-bezier(.22, 1, .36, 1)" },
+      ),
+    ];
+    if (outgoing) {
+      outgoing.removeAttribute("id");
+      outgoing.classList.add("gallery-outgoing");
+      outgoing.setAttribute("aria-hidden", "true");
+      outgoing.inert = true;
+      viewport.prepend(outgoing);
+      $$(".photo-card", grid).forEach((card) =>
+        card.classList.remove("is-new"),
+      );
+      galleryAnimations.push(
+        outgoing.animate([{ opacity: 1 }, { opacity: 0 }], {
+          duration: 190,
+          fill: "forwards",
+        }),
+        grid.animate([{ opacity: 0 }, { opacity: 1 }], {
+          duration: 320,
+          delay: 60,
+          easing: "ease-out",
+          fill: "backwards",
+        }),
+      );
+    }
+    Promise.allSettled(
+      galleryAnimations.map((animation) => animation.finished),
+    ).then(() => {
+      if (transition === galleryTransitionId) cancelGalleryAnimations();
+    });
+  }
+
+  $$("[data-destination]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      if (button.getAttribute("aria-pressed") === "true") return;
+      const request = ++galleryRequestId;
+      const nextDestination = button.dataset.destination;
+      const viewport = $(".photo-viewport");
+      viewport.setAttribute("aria-busy", "true");
+      viewport.inert = true;
+      $("#more-photos").disabled = true;
+      $(".photo-count").textContent = t("Chargement…", "Loading…");
       $$("[data-destination]").forEach((item) =>
         item.setAttribute("aria-pressed", String(item === button)),
       );
+      const nextPhotos = portfolioData.photos
+        .filter(
+          (photo) =>
+            nextDestination === "all" || photo.destination === nextDestination,
+        )
+        .slice(0, 8);
+      const results = await Promise.allSettled(
+        nextPhotos.map((photo) => loadPhoto(photo.thumb)),
+      );
+      // Finish the current dissolve before committing another destination.
+      // Repeated clicks still select only the most recent requested filter.
+      await Promise.allSettled(
+        galleryAnimations.map((animation) => animation.finished),
+      );
+      if (request !== galleryRequestId) return;
+      if (results.some((result) => result.status === "rejected")) {
+        resetGalleryRequest();
+        renderPhotos();
+        toast(
+          t(
+            "Le chargement a échoué. Réessayez cette destination.",
+            "Loading failed. Please try this destination again.",
+          ),
+        );
+        return;
+      }
+      const height = viewport.getBoundingClientRect().height;
+      const outgoing = reducedMotion.matches
+        ? null
+        : $("#photo-grid").cloneNode(true);
+      cancelGalleryAnimations();
+      destination = nextDestination;
+      photoLimit = 8;
       renderPhotos();
-    }),
-  );
+      // The destination's thumbnails are already decoded; reveal them together.
+      $$("#photo-grid img").forEach((img) => img.classList.add("is-loaded"));
+      viewport.setAttribute("aria-busy", "false");
+      viewport.inert = false;
+      $("#more-photos").disabled = false;
+      animateGallery(height, outgoing);
+    });
+  });
   $("#more-photos").addEventListener("click", (event) => {
+    const height = $(".photo-viewport").getBoundingClientRect().height;
+    cancelGalleryAnimations();
     const oldLimit = photoLimit;
     photoLimit += 8;
     renderPhotos();
+    animateGallery(height);
     if (event.detail === 0)
-      $$(".photo-card")[oldLimit]?.focus({ preventScroll: true });
+      $$("#photo-grid > .photo-card")[oldLimit]?.focus({ preventScroll: true });
   });
+  window.addEventListener("resize", cancelGalleryAnimations);
 
   function clearPhotoTransition() {
     photoTransitionId++;
@@ -822,9 +962,85 @@
     }
   });
 
+  function playTextMotion(title) {
+    title.classList.remove("is-text-pending");
+    title.classList.add("is-text-visible");
+    textMotionObserver?.unobserve(title);
+  }
+
+  function prepareTextMotion() {
+    if (!textMotionObserver && "IntersectionObserver" in window) {
+      textMotionObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) playTextMotion(entry.target);
+          });
+        },
+        { threshold: 0.15, rootMargin: "0px 0px -5% 0px" },
+      );
+    }
+    $$("[data-text-motion]").forEach((title) => {
+      textMotionObserver?.unobserve(title);
+      title.classList.remove("is-text-pending", "is-text-visible");
+      // Rebuild from the current translation; never nest generated word spans.
+      $$(".motion-word", title).forEach((word) =>
+        word.replaceWith(document.createTextNode(word.textContent)),
+      );
+      title.normalize();
+      if (reducedMotion.matches) return;
+
+      const walker = document.createTreeWalker(title, NodeFilter.SHOW_TEXT);
+      const textNodes = [];
+      while (walker.nextNode()) {
+        if (walker.currentNode.textContent.trim())
+          textNodes.push(walker.currentNode);
+      }
+      let wordIndex = 0;
+      textNodes.forEach((textNode) => {
+        const secondHeroLine =
+          title.dataset.textMotion === "hero" &&
+          textNode.parentElement.closest(".hero-line");
+        const fragment = document.createDocumentFragment();
+        textNode.textContent.split(/(\s+)/u).forEach((token) => {
+          if (!token.trim()) {
+            fragment.append(document.createTextNode(token));
+            return;
+          }
+          const word = node("span", "motion-word", token);
+          word.addEventListener(
+            "animationend",
+            () => {
+              // Release the temporary blur/transform layers once the text is in place.
+              word.classList.add("is-word-settled");
+            },
+            { once: true },
+          );
+          const delay =
+            title.dataset.textMotion === "hero"
+              ? 100 + wordIndex * 80 + (secondHeroLine ? 180 : 0)
+              : wordIndex * 55;
+          word.style.setProperty("--word-delay", `${delay}ms`);
+          fragment.append(word);
+          wordIndex++;
+        });
+        textNode.replaceWith(fragment);
+      });
+      title.closest(".reveal")?.classList.add("has-text-motion");
+      const bounds = title.getBoundingClientRect();
+      if (bounds.top < innerHeight * 0.95 && bounds.bottom > 0) {
+        playTextMotion(title);
+      } else if (textMotionObserver) {
+        title.classList.add("is-text-pending");
+        textMotionObserver.observe(title);
+      }
+    });
+  }
+
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   reducedMotion.addEventListener("change", () => {
+    prepareTextMotion();
     if (!reducedMotion.matches) return;
+    cancelGalleryAnimations();
     settleTabTransition();
     clearPhotoTransition();
     lightboxCloseAnimation?.finish();
