@@ -101,12 +101,13 @@
     <main id="main">
       <section class="hero container" id="accueil">
         <div class="hero-intro">
-          <img
-            alt="Mehdi Robardet"
-            height="40"
-            src="assets/portrait.webp"
-            width="40"
-          /><span>Mehdi Robardet</span
+          <span class="hero-avatar"
+            ><img
+              alt="Mehdi Robardet"
+              height="768"
+              src="assets/avatar.webp"
+              width="768" /></span
+          ><span class="hero-name">Mehdi Robardet</span
           ><span aria-hidden="true" class="intro-dot"></span
           ><span
             class="intro-school"
@@ -163,7 +164,16 @@
             >↓</a
           >
         </div>
-        <div aria-hidden="true" class="hero-glow"></div>
+        <div aria-hidden="true" class="hero-backdrop">
+          <img
+            class="hero-wallpaper"
+            src="assets/hero/glass-ribbons.webp"
+            alt=""
+            width="1672"
+            height="941"
+            fetchpriority="high"
+          />
+        </div>
       </section>
       <section class="projects-section section-space" id="projets">
         <div class="container">
@@ -741,405 +751,446 @@
               <span data-en="Education" data-fr="Formation">Formation</span>
             </button>
           </div>
-          <div aria-labelledby="tab-experience" id="experience" role="tabpanel">
-            <details class="journey-item">
-              <summary>
-                <span class="journey-date"
-                  ><span
-                    data-en="Feb. 2026 - present"
-                    data-fr="Févr. 2026 - aujourd'hui"
-                    >Févr. 2026 - aujourd'hui</span
-                  ></span
-                ><span class="journey-main"
-                  ><span aria-hidden="true" class="company-monogram">CF</span
-                  ><span
-                    ><strong
-                      ><span
-                        data-en="Full-Stack Developer"
-                        data-fr="Full-Stack Developer"
-                        >Full-Stack Developer</span
-                      ></strong
+          <div class="journey-panels">
+            <div
+              aria-labelledby="tab-experience"
+              id="experience"
+              role="tabpanel"
+            >
+              <details class="journey-item">
+                <summary>
+                  <span class="journey-date"
                     ><span
-                      class="journey-subtitle"
-                      data-en="CONTROL F · Fixed-term contract"
-                      data-fr="CONTROL F · CDD"
-                      >CONTROL F · CDD</span
+                      data-en="Feb. 2026 - present"
+                      data-fr="Févr. 2026 - aujourd'hui"
+                      >Févr. 2026 - aujourd'hui</span
                     ></span
-                  ></span
-                ><span aria-hidden="true" class="disclosure-icon">+</span>
-              </summary>
-              <div class="journey-detail">
-                <ul>
-                  <li
-                    data-en="Built CRUD systems for managing application data."
-                    data-fr="Réalisation de systèmes CRUD pour la
+                  ><span class="journey-main"
+                    ><img
+                      class="company-logo"
+                      src="assets/LogoControlF.png"
+                      alt=""
+                      width="200"
+                      height="200"
+                      loading="lazy"
+                    />
+                    <span
+                      ><strong
+                        ><span
+                          data-en="Full-Stack Developer"
+                          data-fr="Full-Stack Developer"
+                          >Full-Stack Developer</span
+                        ></strong
+                      ><span
+                        class="journey-subtitle"
+                        data-en="CONTROL F · Fixed-term contract"
+                        data-fr="CONTROL F · CDD"
+                        >CONTROL F · CDD</span
+                      ></span
+                    ></span
+                  ><span aria-hidden="true" class="disclosure-icon">+</span>
+                </summary>
+                <div class="journey-detail">
+                  <ul>
+                    <li
+                      data-en="Built CRUD systems for managing application data."
+                      data-fr="Réalisation de systèmes CRUD pour la
                           gestion des données applicatives."
-                  >
-                    Réalisation de systèmes CRUD pour la gestion des données
-                    applicatives.
-                  </li>
-                  <li
-                    data-en="Maintained the codebase through code reviews and merge request management."
-                    data-fr="Maintenance de la codebase avec revues de code et
+                    >
+                      Réalisation de systèmes CRUD pour la gestion des données
+                      applicatives.
+                    </li>
+                    <li
+                      data-en="Maintained the codebase through code reviews and merge request management."
+                      data-fr="Maintenance de la codebase avec revues de code et
                           gestion des merge requests."
-                  >
-                    Maintenance de la codebase avec revues de code et gestion
-                    des merge requests.
-                  </li>
-                  <li
-                    data-en="Worked on the Kubernetes environment: pod access, migration runs, service restarts."
-                    data-fr="Interventions sur l'environnement Kubernetes :
+                    >
+                      Maintenance de la codebase avec revues de code et gestion
+                      des merge requests.
+                    </li>
+                    <li
+                      data-en="Worked on the Kubernetes environment: pod access, migration runs, service restarts."
+                      data-fr="Interventions sur l'environnement Kubernetes :
                           connexion aux pods, exécution de migrations,
                           redémarrage de services."
-                  >
-                    Interventions sur l'environnement Kubernetes : connexion aux
-                    pods, exécution de migrations, redémarrage de services.
-                  </li>
-                  <li
-                    data-en="Developed APIs with Django and built data visualization charts with Recharts."
-                    data-fr="Développement d'API avec Django et
+                    >
+                      Interventions sur l'environnement Kubernetes : connexion
+                      aux pods, exécution de migrations, redémarrage de
+                      services.
+                    </li>
+                    <li
+                      data-en="Developed APIs with Django and built data visualization charts with Recharts."
+                      data-fr="Développement d'API avec Django et
                           création de graphiques de visualisation de
                           données avec Recharts."
-                  >
-                    Développement d'API avec Django et création de graphiques de
-                    visualisation de données avec Recharts.
-                  </li>
-                  <li
-                    data-en="Technologies used: React.js, Django, Kubernetes, AWS, Git, JavaScript."
-                    data-fr="Technologies utilisées : React.js, Django,
+                    >
+                      Développement d'API avec Django et création de graphiques
+                      de visualisation de données avec Recharts.
+                    </li>
+                    <li
+                      data-en="Technologies used: React.js, Django, Kubernetes, AWS, Git, JavaScript."
+                      data-fr="Technologies utilisées : React.js, Django,
                           Kubernetes, AWS, Git, JavaScript."
+                    >
+                      Technologies utilisées : React.js, Django, Kubernetes,
+                      AWS, Git, JavaScript.
+                    </li>
+                  </ul>
+                  <p
+                    data-en="Paris, France · Hybrid"
+                    data-fr="Paris, France · Hybride"
                   >
-                    Technologies utilisées : React.js, Django, Kubernetes, AWS,
-                    Git, JavaScript.
-                  </li>
-                </ul>
-                <p
-                  data-en="Paris, France · Hybrid"
-                  data-fr="Paris, France · Hybride"
-                >
-                  Paris, France · Hybride
-                </p>
-              </div>
-            </details>
-            <details class="journey-item">
-              <summary>
-                <span class="journey-date"
-                  ><span
-                    data-en="Sept. 2025 - Jan. 2026"
-                    data-fr="Sept. 2025 - Janv. 2026"
-                    >Sept. 2025 - Janv. 2026</span
-                  ></span
-                ><span class="journey-main"
-                  ><span aria-hidden="true" class="company-monogram">CF</span
-                  ><span
-                    ><strong
+                    Paris, France · Hybride
+                  </p>
+                </div>
+              </details>
+              <details class="journey-item">
+                <summary>
+                  <span class="journey-date"
+                    ><span
+                      data-en="Sept. 2025 - Jan. 2026"
+                      data-fr="Sept. 2025 - Janv. 2026"
+                      >Sept. 2025 - Janv. 2026</span
+                    ></span
+                  ><span class="journey-main"
+                    ><img
+                      class="company-logo"
+                      src="assets/LogoControlF.png"
+                      alt=""
+                      width="200"
+                      height="200"
+                      loading="lazy"
+                    />
+                    <span
+                      ><strong
+                        ><span
+                          data-en="Front-End Developer"
+                          data-fr="Front-End Developer"
+                          >Front-End Developer</span
+                        ></strong
                       ><span
-                        data-en="Front-End Developer"
-                        data-fr="Front-End Developer"
-                        >Front-End Developer</span
-                      ></strong
-                    ><span
-                      class="journey-subtitle"
-                      data-en="CONTROL F · Internship"
-                      data-fr="CONTROL F · Stage"
-                      >CONTROL F · Stage</span
+                        class="journey-subtitle"
+                        data-en="CONTROL F · Internship"
+                        data-fr="CONTROL F · Stage"
+                        >CONTROL F · Stage</span
+                      ></span
                     ></span
-                  ></span
-                ><span aria-hidden="true" class="disclosure-icon">+</span>
-              </summary>
-              <div class="journey-detail">
-                <ul>
-                  <li
-                    data-en="Developed interactive dashboards with Shadcn/UI and React.js."
-                    data-fr="Développement de dashboards interactifs avec
+                  ><span aria-hidden="true" class="disclosure-icon">+</span>
+                </summary>
+                <div class="journey-detail">
+                  <ul>
+                    <li
+                      data-en="Developed interactive dashboards with Shadcn/UI and React.js."
+                      data-fr="Développement de dashboards interactifs avec
                           Shadcn/UI et React.js."
-                  >
-                    Développement de dashboards interactifs avec Shadcn/UI et
-                    React.js.
-                  </li>
-                  <li
-                    data-en="Migrated and maintained the web pipeline as well as the front-end codebase."
-                    data-fr="Migration et maintenance de la pipeline web ainsi que
+                    >
+                      Développement de dashboards interactifs avec Shadcn/UI et
+                      React.js.
+                    </li>
+                    <li
+                      data-en="Migrated and maintained the web pipeline as well as the front-end codebase."
+                      data-fr="Migration et maintenance de la pipeline web ainsi que
                           de la codebase front-end."
-                  >
-                    Migration et maintenance de la pipeline web ainsi que de la
-                    codebase front-end.
-                  </li>
-                  <li
-                    data-en="Designed and integrated a landing page from Figma mockups."
-                    data-fr="Conception et intégration d'une landing page
+                    >
+                      Migration et maintenance de la pipeline web ainsi que de
+                      la codebase front-end.
+                    </li>
+                    <li
+                      data-en="Designed and integrated a landing page from Figma mockups."
+                      data-fr="Conception et intégration d'une landing page
                           à partir de maquettes Figma."
-                  >
-                    Conception et intégration d'une landing page à partir de
-                    maquettes Figma.
-                  </li>
-                  <li
-                    data-en="Tools used: JavaScript, React.js, Figma, Jira, Git."
-                    data-fr="Outils utilisés : JavaScript, React.js, Figma,
+                    >
+                      Conception et intégration d'une landing page à partir de
+                      maquettes Figma.
+                    </li>
+                    <li
+                      data-en="Tools used: JavaScript, React.js, Figma, Jira, Git."
+                      data-fr="Outils utilisés : JavaScript, React.js, Figma,
                           Jira, Git."
-                  >
-                    Outils utilisés : JavaScript, React.js, Figma, Jira, Git.
-                  </li>
-                </ul>
-                <p
-                  data-en="Paris and surrounding area · Hybrid"
-                  data-fr="Paris et périphérie ·
+                    >
+                      Outils utilisés : JavaScript, React.js, Figma, Jira, Git.
+                    </li>
+                  </ul>
+                  <p
+                    data-en="Paris and surrounding area · Hybrid"
+                    data-fr="Paris et périphérie ·
                         Hybride"
-                >
-                  Paris et périphérie · Hybride
-                </p>
-              </div>
-            </details>
-            <details class="journey-item">
-              <summary>
-                <span class="journey-date"
-                  ><span
-                    data-en="Jun. 2023 - Jul. 2023"
-                    data-fr="Juin 2023 - Juillet 2023"
-                    >Juin 2023 - Juillet 2023</span
-                  ></span
-                ><span class="journey-main"
-                  ><span aria-hidden="true" class="company-monogram">SOS</span
-                  ><span
-                    ><strong
-                      ><span data-en="QSE Intern" data-fr="QSE Intern"
-                        >QSE Intern</span
-                      ></strong
-                    ><span
-                      class="journey-subtitle"
-                      data-en="Groupe SOS Seniors · Groupe SOS Seniors · Internship"
-                      data-fr="Groupe SOS Seniors · Groupe SOS Seniors · Stage"
-                      >Groupe SOS Seniors · Groupe SOS Seniors · Stage</span
-                    ></span
-                  ></span
-                ><span aria-hidden="true" class="disclosure-icon">+</span>
-              </summary>
-              <div class="journey-detail">
-                <ul>
-                  <li
-                    data-en="Analyzed the energy consumption of healthcare and social care facilities."
-                    data-fr="Analyser les consommations énergétiques
-                          des établissements médico-sociaux."
                   >
-                    Analyser les consommations énergétiques des établissements
-                    médico-sociaux.
-                  </li>
-                  <li
-                    data-en="Created interactive awareness materials about safety and sustainable development."
-                    data-fr="Créer des supports interactifs de
+                    Paris et périphérie · Hybride
+                  </p>
+                </div>
+              </details>
+              <details class="journey-item">
+                <summary>
+                  <span class="journey-date"
+                    ><span
+                      data-en="Jun. 2023 - Jul. 2023"
+                      data-fr="Juin 2023 - Juillet 2023"
+                      >Juin 2023 - Juillet 2023</span
+                    ></span
+                  ><span class="journey-main"
+                    ><img
+                      class="company-logo company-logo-sos"
+                      src="assets/Groupe-SOS-Seniors.png"
+                      alt=""
+                      width="350"
+                      height="350"
+                      loading="lazy"
+                    />
+                    <span
+                      ><strong
+                        ><span data-en="QSE Intern" data-fr="QSE Intern"
+                          >QSE Intern</span
+                        ></strong
+                      ><span
+                        class="journey-subtitle"
+                        data-en="Groupe SOS Seniors · Internship"
+                        data-fr="Groupe SOS Seniors · Stage"
+                        >Groupe SOS Seniors · Stage</span
+                      ></span
+                    ></span
+                  ><span aria-hidden="true" class="disclosure-icon">+</span>
+                </summary>
+                <div class="journey-detail">
+                  <ul>
+                    <li
+                      data-en="Analyzed the energy consumption of healthcare and social care facilities."
+                      data-fr="Analyser les consommations énergétiques
+                          des établissements médico-sociaux."
+                    >
+                      Analyser les consommations énergétiques des établissements
+                      médico-sociaux.
+                    </li>
+                    <li
+                      data-en="Created interactive awareness materials about safety and sustainable development."
+                      data-fr="Créer des supports interactifs de
                           sensibilisation à la sécurité et
                           au développement durable."
+                    >
+                      Créer des supports interactifs de sensibilisation à la
+                      sécurité et au développement durable.
+                    </li>
+                  </ul>
+                  <p
+                    data-en="Metz, Grand Est, France · On-site"
+                    data-fr="Metz, Grand Est, France · Sur site"
                   >
-                    Créer des supports interactifs de sensibilisation à la
-                    sécurité et au développement durable.
-                  </li>
-                </ul>
-                <p
-                  data-en="Metz, Grand Est, France · On-site"
-                  data-fr="Metz, Grand Est, France · Sur site"
-                >
-                  Metz, Grand Est, France · Sur site
-                </p>
-              </div>
-            </details>
-            <details class="journey-item">
-              <summary>
-                <span class="journey-date"
-                  ><span
-                    data-en="Jan. 2022 - Jun. 2022"
-                    data-fr="Janvier 2022 - Juin 2022"
-                    >Janvier 2022 - Juin 2022</span
-                  ></span
-                ><span class="journey-main"
-                  ><span aria-hidden="true" class="company-monogram">↗</span
-                  ><span
-                    ><strong
+                    Metz, Grand Est, France · Sur site
+                  </p>
+                </div>
+              </details>
+              <details class="journey-item">
+                <summary>
+                  <span class="journey-date"
+                    ><span
+                      data-en="Jan. 2022 - Jun. 2022"
+                      data-fr="Janvier 2022 - Juin 2022"
+                      >Janvier 2022 - Juin 2022</span
+                    ></span
+                  ><span class="journey-main"
+                    ><img src="assets/fabert.svg" alt="" loading="lazy" />
+                    <span
+                      ><strong
+                        ><span
+                          data-en="Volunteer educational support"
+                          data-fr="Aide éducative bénévole"
+                          >Aide éducative bénévole</span
+                        ></strong
                       ><span
-                        data-en="Volunteer educational support"
-                        data-fr="Aide éducative bénévole"
-                        >Aide éducative bénévole</span
-                      ></strong
-                    ><span
-                      class="journey-subtitle"
-                      data-en="Bénévolat · Mathematics support for first-year students"
-                      data-fr="Bénévolat · Assistance aux élèves de première
+                        class="journey-subtitle"
+                        data-en="Bénévolat · Mathematics support for first-year students"
+                        data-fr="Bénévolat · Assistance aux élèves de première
                         en mathématiques"
-                      >Bénévolat · Assistance aux élèves de première en
-                      mathématiques</span
+                        >Bénévolat · Assistance aux élèves de première en
+                        mathématiques</span
+                      ></span
                     ></span
-                  ></span
-                ><span aria-hidden="true" class="disclosure-icon">+</span>
-              </summary>
-              <div class="journey-detail">
-                <ul>
-                  <li
-                    data-en="Helped first-year students prepare for exams."
-                    data-fr="Aider aux élèves de première
+                  ><span aria-hidden="true" class="disclosure-icon">+</span>
+                </summary>
+                <div class="journey-detail">
+                  <ul>
+                    <li
+                      data-en="Helped first-year students prepare for exams."
+                      data-fr="Aider aux élèves de première
                           à la préparation des examens."
-                  >
-                    Aider aux élèves de première à la préparation des examens.
-                  </li>
-                  <li
-                    data-en="Strengthened their problem-solving methodology."
-                    data-fr="Renforcer leur méthodologie de
+                    >
+                      Aider aux élèves de première à la préparation des examens.
+                    </li>
+                    <li
+                      data-en="Strengthened their problem-solving methodology."
+                      data-fr="Renforcer leur méthodologie de
                           résolution de problèmes."
+                    >
+                      Renforcer leur méthodologie de résolution de problèmes.
+                    </li>
+                  </ul>
+                  <p
+                    data-en="Metz, France · On-site"
+                    data-fr="Metz, France · Sur site"
                   >
-                    Renforcer leur méthodologie de résolution de problèmes.
-                  </li>
-                </ul>
-                <p
-                  data-en="Metz, France · On-site"
-                  data-fr="Metz, France · Sur site"
-                >
-                  Metz, France · Sur site
-                </p>
-              </div>
-            </details>
-          </div>
-          <div
-            aria-labelledby="tab-education"
-            hidden=""
-            id="education"
-            role="tabpanel"
-          >
-            <details class="journey-item">
-              <summary>
-                <span class="journey-date"
-                  ><span
-                    data-en="Sept 2022 - present"
-                    data-fr="Sept 2022 - aujourd'hui"
-                    >Sept 2022 - aujourd'hui</span
-                  ></span
-                ><span class="journey-main"
-                  ><img alt="" loading="lazy" src="assets/Epita.png" /><span
-                    ><strong>EPITA - École d'ingénieur en informatique</strong
+                    Metz, France · Sur site
+                  </p>
+                </div>
+              </details>
+            </div>
+            <div
+              aria-labelledby="tab-education"
+              hidden=""
+              id="education"
+              role="tabpanel"
+            >
+              <details class="journey-item">
+                <summary>
+                  <span class="journey-date"
                     ><span
-                      class="journey-subtitle"
-                      data-en="GPA 3.7, final-year student"
-                      data-fr="GPA 3.7, étudiant en dernière année"
-                      >GPA 3.7, étudiant en dernière année</span
+                      data-en="Sept 2022 - present"
+                      data-fr="Sept 2022 - aujourd'hui"
+                      >Sept 2022 - aujourd'hui</span
                     ></span
-                  ></span
-                ><span aria-hidden="true" class="disclosure-icon">+</span>
-              </summary>
-              <div class="journey-detail">
-                <ul>
-                  <li
-                    data-en="Artificial intelligence: Fundamentals for Machine Learning, Introduction to neural networks, Natural Language Processing, Multi-Agent Systems and symbolic AI."
-                    data-fr="Intelligence artificielle : Fondamentaux pour le Machine
+                  ><span class="journey-main"
+                    ><img
+                      alt=""
+                      loading="lazy"
+                      src="assets/logos/epita.webp"
+                      width="192"
+                      height="130"
+                    /><span
+                      ><strong>EPITA - École d'ingénieur en informatique</strong
+                      ><span
+                        class="journey-subtitle"
+                        data-en="GPA 3.7, final-year student"
+                        data-fr="GPA 3.7, étudiant en dernière année"
+                        >GPA 3.7, étudiant en dernière année</span
+                      ></span
+                    ></span
+                  ><span aria-hidden="true" class="disclosure-icon">+</span>
+                </summary>
+                <div class="journey-detail">
+                  <ul>
+                    <li
+                      data-en="Artificial intelligence: Fundamentals for Machine Learning, Introduction to neural networks, Natural Language Processing, Multi-Agent Systems and symbolic AI."
+                      data-fr="Intelligence artificielle : Fondamentaux pour le Machine
                     Learning, Introduction aux réseaux de neurones,
                     Natural Language Processing, Systèmes Multi-Agents et
                     IA symbolique."
-                  >
-                    Intelligence artificielle : Fondamentaux pour le Machine
-                    Learning, Introduction aux réseaux de neurones, Natural
-                    Language Processing, Systèmes Multi-Agents et IA symbolique.
-                  </li>
-                  <li
-                    data-en="Data &amp; cloud: Introduction to Data Engineering, Python for Big Data with Pandas, Microsoft Azure and Video Processing."
-                    data-fr="Data &amp; cloud : Introduction au Data Engineering, Python pour
+                    >
+                      Intelligence artificielle : Fondamentaux pour le Machine
+                      Learning, Introduction aux réseaux de neurones, Natural
+                      Language Processing, Systèmes Multi-Agents et IA
+                      symbolique.
+                    </li>
+                    <li
+                      data-en="Data &amp; cloud: Introduction to Data Engineering, Python for Big Data with Pandas, Microsoft Azure and Video Processing."
+                      data-fr="Data &amp; cloud : Introduction au Data Engineering, Python pour
                     le Big Data avec Pandas, Microsoft Azure et Video
                     Processing."
-                  >
-                    Data &amp; cloud : Introduction au Data Engineering, Python
-                    pour le Big Data avec Pandas, Microsoft Azure et Video
-                    Processing.
-                  </li>
-                  <li
-                    data-en="Advanced modeling: Recommender Systems / Matrix Factorization, Convex Optimization, Constraint Programming, Bayesian &amp; Causality."
-                    data-fr="Modélisation avancée : Recommender System /
+                    >
+                      Data &amp; cloud : Introduction au Data Engineering,
+                      Python pour le Big Data avec Pandas, Microsoft Azure et
+                      Video Processing.
+                    </li>
+                    <li
+                      data-en="Advanced modeling: Recommender Systems / Matrix Factorization, Convex Optimization, Constraint Programming, Bayesian &amp; Causality."
+                      data-fr="Modélisation avancée : Recommender System /
                     Matrix Factorization, Optimisation Convexe, Programmation
                     Par Contraintes, Bayésien &amp; Causalité."
+                    >
+                      Modélisation avancée : Recommender System / Matrix
+                      Factorization, Optimisation Convexe, Programmation Par
+                      Contraintes, Bayésien &amp; Causalité.
+                    </li>
+                  </ul>
+                  <p data-en="Paris, France" data-fr="Paris, France">
+                    Paris, France
+                  </p>
+                  <p
+                    data-en="TOEIC 870 · Professional English"
+                    data-fr="TOEIC 870 - anglais professionnel"
                   >
-                    Modélisation avancée : Recommender System / Matrix
-                    Factorization, Optimisation Convexe, Programmation Par
-                    Contraintes, Bayésien &amp; Causalité.
-                  </li>
-                </ul>
-                <p data-en="Paris, France" data-fr="Paris, France">
-                  Paris, France
-                </p>
-                <p
-                  data-en="TOEIC 870 · Professional English"
-                  data-fr="TOEIC 870 - anglais professionnel"
-                >
-                  TOEIC 870 - anglais professionnel
-                </p>
-              </div>
-            </details>
-            <details class="journey-item">
-              <summary>
-                <span class="journey-date"
-                  ><span data-en="2026" data-fr="2026">2026</span></span
-                ><span class="journey-main"
-                  ><img alt="" loading="lazy" src="assets/ccu.png" /><span
-                    ><strong>National Chung Cheng University</strong
-                    ><span
-                      class="journey-subtitle"
-                      data-en="Exchange semester"
-                      data-fr="Semestre d'échange"
-                      >Semestre d'échange</span
+                    TOEIC 870 - anglais professionnel
+                  </p>
+                </div>
+              </details>
+              <details class="journey-item">
+                <summary>
+                  <span class="journey-date"
+                    ><span data-en="2026" data-fr="2026">2026</span></span
+                  ><span class="journey-main"
+                    ><img
+                      alt=""
+                      loading="lazy"
+                      src="assets/logos/ccu.webp"
+                      width="151"
+                      height="144"
+                    /><span
+                      ><strong>National Chung Cheng University</strong
+                      ><span
+                        class="journey-subtitle"
+                        data-en="Exchange semester"
+                        data-fr="Semestre d'échange"
+                        >Semestre d'échange</span
+                      ></span
                     ></span
-                  ></span
-                ><span aria-hidden="true" class="disclosure-icon">+</span>
-              </summary>
-              <div class="journey-detail">
-                <ul>
-                  <li
-                    data-en="Content: Artificial Intelligence, Robotics, Data Science."
-                    data-fr="Contenu : Artificial Intelligence, Robotics, Data Science."
-                  >
-                    Contenu : Artificial Intelligence, Robotics, Data Science.
-                  </li>
-                </ul>
-                <p data-en="Minxiong, Taiwan" data-fr="Minxiong, Taiwan">
-                  Minxiong, Taiwan
-                </p>
-              </div>
-            </details>
-            <details class="journey-item">
-              <summary>
-                <span class="journey-date"
-                  ><span
-                    data-en="Sept 2019 - Jun 2022"
-                    data-fr="Sept 2019 - Juin 2022"
-                    >Sept 2019 - Juin 2022</span
-                  ></span
-                ><span class="journey-main"
-                  ><img alt="" loading="lazy" src="assets/fabert.svg" /><span
-                    ><strong>Lycée Fabert</strong
+                  ><span aria-hidden="true" class="disclosure-icon">+</span>
+                </summary>
+                <div class="journey-detail">
+                  <ul>
+                    <li
+                      data-en="Content: Artificial Intelligence, Robotics, Data Science."
+                      data-fr="Contenu : Artificial Intelligence, Robotics, Data Science."
+                    >
+                      Contenu : Artificial Intelligence, Robotics, Data Science.
+                    </li>
+                  </ul>
+                  <p data-en="Minxiong, Taiwan" data-fr="Minxiong, Taiwan">
+                    Minxiong, Taiwan
+                  </p>
+                </div>
+              </details>
+              <details class="journey-item">
+                <summary>
+                  <span class="journey-date"
                     ><span
-                      class="journey-subtitle"
-                      data-en=""
-                      data-fr=""
-                    ></span></span></span
-                ><span aria-hidden="true" class="disclosure-icon">+</span>
-              </summary>
-              <div class="journey-detail">
-                <ul>
-                  <li
-                    data-en="Earned the French Baccalauréat with Mathematics, Physics-Chemistry and Computer Science specialties, with highest honors."
-                    data-fr="Obtention du baccalauréat spécialités
+                      data-en="Sept 2019 - Jun 2022"
+                      data-fr="Sept 2019 - Juin 2022"
+                      >Sept 2019 - Juin 2022</span
+                    ></span
+                  ><span class="journey-main"
+                    ><img alt="" loading="lazy" src="assets/fabert.svg" /><span
+                      ><strong>Lycée Fabert</strong
+                      ><span
+                        class="journey-subtitle"
+                        data-en=""
+                        data-fr=""
+                      ></span></span></span
+                  ><span aria-hidden="true" class="disclosure-icon">+</span>
+                </summary>
+                <div class="journey-detail">
+                  <ul>
+                    <li
+                      data-en="Earned the French Baccalauréat with Mathematics, Physics-Chemistry and Computer Science specialties, with highest honors."
+                      data-fr="Obtention du baccalauréat spécialités
                     Mathématiques, Physique-chimie et Informatique,
                     mention Très Bien."
-                  >
-                    Obtention du baccalauréat spécialités Mathématiques,
-                    Physique-chimie et Informatique, mention Très Bien.
-                  </li>
-                  <li
-                    data-en="Languages: French native, English advanced, Italian basic."
-                    data-fr="Langues : Français courant, Anglais niveau avancé,
+                    >
+                      Obtention du baccalauréat spécialités Mathématiques,
+                      Physique-chimie et Informatique, mention Très Bien.
+                    </li>
+                    <li
+                      data-en="Languages: French native, English advanced, Italian basic."
+                      data-fr="Langues : Français courant, Anglais niveau avancé,
                     Italien niveau de base."
-                  >
-                    Langues : Français courant, Anglais niveau avancé, Italien
-                    niveau de base.
-                  </li>
-                </ul>
-                <p data-en="Metz, France" data-fr="Metz, France">
-                  Metz, France
-                </p>
-              </div>
-            </details>
+                    >
+                      Langues : Français courant, Anglais niveau avancé, Italien
+                      niveau de base.
+                    </li>
+                  </ul>
+                  <p data-en="Metz, France" data-fr="Metz, France">
+                    Metz, France
+                  </p>
+                </div>
+              </details>
+            </div>
           </div>
         </div>
       </section>
@@ -1335,22 +1386,30 @@
       class="project-dialog"
       id="project-dialog"
     >
-      <button aria-label="Fermer" class="dialog-close" type="button">×</button>
+      <button aria-label="Fermer" class="dialog-close" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="m6 6 12 12M18 6 6 18" />
+        </svg>
+      </button>
       <div id="project-detail"></div>
     </dialog>
     <dialog aria-label="Visionneuse photo" class="lightbox" id="lightbox">
       <div class="lightbox-top">
         <span id="lightbox-counter"></span
         ><button aria-label="Fermer" class="dialog-close" type="button">
-          ×
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="m6 6 12 12M18 6 6 18" />
+          </svg>
         </button>
       </div>
       <button aria-label="Photo précédente" class="lightbox-prev" type="button">
         ←
       </button>
       <figure>
-        <img alt="" id="lightbox-image" />
-        <figcaption id="lightbox-caption"></figcaption>
+        <div class="lightbox-stage" aria-busy="false">
+          <img alt="" id="lightbox-image" draggable="false" />
+        </div>
+        <figcaption id="lightbox-caption" aria-live="polite"></figcaption>
       </figure>
       <button aria-label="Photo suivante" class="lightbox-next" type="button">
         →

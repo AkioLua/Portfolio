@@ -31,6 +31,14 @@
   let selectedProject = null;
   let toastTimer;
   let returnFocus = null;
+  const photoCards = new Map();
+  const decodedPhotos = new Map();
+  let photoRequestId = 0;
+  let displayedPhotoIndex = 0;
+  let photoTransitionId = 0;
+  let photoAnimations = [];
+  let lightboxClosing = false;
+  let lightboxCloseAnimation = null;
   const t = (fr, en) => (language === "fr" ? fr : en);
   const normalize = (value) =>
     value
@@ -155,6 +163,8 @@
     if (projectDialog.open && selectedProject !== null)
       renderProjectDetail(selectedProject);
     if (lightbox.open) renderLightbox();
+    settleTabTransition();
+    syncTabIndicator();
   }
 
   $(".language-toggle").addEventListener("click", () => {
@@ -240,14 +250,37 @@
 
   function openDialog(dialog) {
     returnFocus = document.activeElement;
+    document.documentElement.style.setProperty(
+      "--scrollbar-compensation",
+      `${window.innerWidth - document.documentElement.clientWidth}px`,
+    );
     dialog.showModal();
     document.body.classList.add("modal-open");
+    if (dialog === lightbox) fitLightboxImages();
     $(".dialog-close", dialog).focus({ preventScroll: true });
   }
   [projectDialog, lightbox].forEach((dialog) => {
-    $(".dialog-close", dialog).addEventListener("click", () => dialog.close());
+    $(".dialog-close", dialog).addEventListener("click", () => {
+      if (dialog === lightbox) closeLightbox();
+      else dialog.close();
+    });
+    dialog.addEventListener("cancel", (event) => {
+      if (dialog !== lightbox) return;
+      event.preventDefault();
+      closeLightbox();
+    });
     dialog.addEventListener("close", () => {
+      if (dialog === lightbox) {
+        photoRequestId++;
+        clearPhotoTransition();
+        lightboxCloseAnimation?.cancel();
+        lightboxCloseAnimation = null;
+        lightboxClosing = false;
+        lightbox.classList.remove("is-closing");
+        $(".lightbox-stage").setAttribute("aria-busy", "false");
+      }
       document.body.classList.remove("modal-open");
+      document.documentElement.style.removeProperty("--scrollbar-compensation");
       if (returnFocus?.isConnected) returnFocus.focus({ preventScroll: true });
     });
     // Only the backdrop closes the project dialog; dragging from its content does not.
@@ -262,11 +295,14 @@
       );
     };
     dialog.addEventListener("pointerdown", (event) => {
-      pressedOutside = outside(event);
+      pressedOutside =
+        dialog === lightbox ? event.target === lightbox : outside(event);
     });
     dialog.addEventListener("click", (event) => {
       if (dialog === projectDialog && pressedOutside && outside(event))
         dialog.close();
+      if (dialog === lightbox && pressedOutside && event.target === lightbox)
+        closeLightbox();
     });
   });
 
@@ -313,14 +349,82 @@
   );
 
   const tabs = $$('.journey-tabs [role="tab"]');
+  const journeyPanels = $(".journey-panels");
+  let tabAnimations = [];
+  let tabTransitionId = 0;
+
+  function syncTabIndicator() {
+    const tab = $('.journey-tabs [aria-selected="true"]');
+    const tablist = $(".journey-tabs");
+    tablist.style.setProperty("--indicator-x", `${tab.offsetLeft}px`);
+    tablist.style.setProperty("--indicator-width", `${tab.offsetWidth}px`);
+    tablist.classList.add("has-indicator");
+  }
+
+  function settleTabTransition() {
+    tabTransitionId++;
+    tabAnimations.forEach((animation) => animation.cancel());
+    tabAnimations = [];
+    journeyPanels.classList.remove("is-transitioning");
+    tabs.forEach((tab) => {
+      const panel = $("#" + tab.getAttribute("aria-controls"));
+      panel.hidden = tab.getAttribute("aria-selected") !== "true";
+      panel.classList.remove("is-leaving");
+      panel.removeAttribute("aria-hidden");
+      panel.inert = false;
+    });
+  }
+
   function selectTab(tab, focus = false) {
+    if (focus) tab.focus();
+    if (tab.getAttribute("aria-selected") === "true") return;
+    const height = journeyPanels.getBoundingClientRect().height;
+    settleTabTransition();
+    const previous = $(".journey-panels > [role='tabpanel']:not([hidden])");
+    const next = $("#" + tab.getAttribute("aria-controls"));
     tabs.forEach((item) => {
       const selected = item === tab;
       item.setAttribute("aria-selected", String(selected));
       item.tabIndex = selected ? 0 : -1;
-      $("#" + item.getAttribute("aria-controls")).hidden = !selected;
     });
-    if (focus) tab.focus();
+    syncTabIndicator();
+    next.hidden = false;
+    if (reducedMotion.matches || !journeyPanels.animate) {
+      previous.hidden = true;
+      return;
+    }
+    previous.classList.add("is-leaving");
+    previous.setAttribute("aria-hidden", "true");
+    previous.inert = true;
+    journeyPanels.classList.add("is-transitioning");
+    const targetHeight = next.getBoundingClientRect().height;
+    const currentTransition = tabTransitionId;
+    const easing = "cubic-bezier(.22, 1, .36, 1)";
+    tabAnimations = [
+      journeyPanels.animate(
+        [{ height: `${height}px` }, { height: `${targetHeight}px` }],
+        { duration: 480, easing },
+      ),
+      previous.animate(
+        [
+          { opacity: 1, transform: "translateY(0)" },
+          { opacity: 0, transform: "translateY(-6px)" },
+        ],
+        { duration: 160, easing, fill: "forwards" },
+      ),
+      next.animate(
+        [
+          { opacity: 0, transform: "translateY(10px)" },
+          { opacity: 1, transform: "translateY(0)" },
+        ],
+        { duration: 380, delay: 70, easing, fill: "both" },
+      ),
+    ];
+    Promise.allSettled(
+      tabAnimations.map((animation) => animation.finished),
+    ).then(() => {
+      if (currentTransition === tabTransitionId) settleTabTransition();
+    });
   }
   tabs.forEach((tab, index) => {
     tab.addEventListener("click", () => selectTab(tab));
@@ -336,6 +440,44 @@
             : (index + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) %
               tabs.length;
       selectTab(tabs[next], true);
+    });
+  });
+  if ("ResizeObserver" in window) {
+    const tabResizeObserver = new ResizeObserver(syncTabIndicator);
+    tabs.forEach((tab) => tabResizeObserver.observe(tab));
+  }
+  window.addEventListener("resize", () => {
+    settleTabTransition();
+    syncTabIndicator();
+  });
+
+  // Animate disclosure height in both directions while keeping native details semantics.
+  const disclosureAnimations = new Map();
+  $$(".journey-item").forEach((details) => {
+    $("summary", details).addEventListener("click", (event) => {
+      if (reducedMotion.matches || !details.animate) return;
+      event.preventDefault();
+      settleTabTransition();
+      const pending = disclosureAnimations.get(details);
+      const opening = pending ? !pending.opening : !details.open;
+      const start = details.getBoundingClientRect().height;
+      pending?.animation.cancel();
+      details.open = true;
+      const end = opening
+        ? details.getBoundingClientRect().height
+        : $("summary", details).getBoundingClientRect().height + 1;
+      details.classList.add("is-expanding");
+      const animation = details.animate(
+        [{ height: `${start}px` }, { height: `${end}px` }],
+        { duration: 340, easing: "cubic-bezier(.22, 1, .36, 1)" },
+      );
+      disclosureAnimations.set(details, { animation, opening });
+      animation.onfinish = () => {
+        details.open = opening;
+        details.classList.remove("is-expanding");
+        disclosureAnimations.delete(details);
+        animation.cancel();
+      };
     });
   });
   function followSectionHash() {
@@ -354,12 +496,71 @@
       (photo) => destination === "all" || photo.destination === destination,
     );
   }
+  function loadPhoto(src) {
+    if (decodedPhotos.has(src)) {
+      const cached = decodedPhotos.get(src);
+      decodedPhotos.delete(src);
+      decodedPhotos.set(src, cached);
+      return cached;
+    }
+    const image = new Image();
+    image.decoding = "async";
+    const promise = new Promise((resolve, reject) => {
+      image.onload = async () => {
+        try {
+          if (image.decode) await image.decode();
+          resolve(image);
+        } catch (error) {
+          reject(error);
+        }
+      };
+      image.onerror = () => reject(new Error("Photo unavailable"));
+      image.src = src;
+    });
+    decodedPhotos.set(src, promise);
+    // Retain a small, useful neighborhood rather than decoding the entire gallery.
+    while (decodedPhotos.size > 8)
+      decodedPhotos.delete(decodedPhotos.keys().next().value);
+    promise.catch(() => {
+      if (decodedPhotos.get(src) === promise) decodedPhotos.delete(src);
+    });
+    return promise;
+  }
+
   function renderPhotos() {
     const photos = filteredPhotos();
-    const fragment = document.createDocumentFragment();
-    photos.slice(0, photoLimit).forEach((photo, index) => {
-      const button = node("button", "photo-card");
-      button.type = "button";
+    const grid = $("#photo-grid");
+    const cards = photos.slice(0, photoLimit).map((photo, index) => {
+      let button = photoCards.get(photo.thumb);
+      if (!button) {
+        button = node("button", "photo-card");
+        button.type = "button";
+        const img = node("img");
+        img.src = photo.thumb;
+        img.width = photo.width;
+        img.height = photo.height;
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.draggable = false;
+        const label = node("span", "photo-label");
+        label.append(node("span"), node("span", "", "↗"));
+        label.setAttribute("aria-hidden", "true");
+        button.append(img, label);
+        button.addEventListener("click", () => {
+          photoIndex = Number(button.dataset.photoIndex);
+          renderLightbox(0, true);
+          openDialog(lightbox);
+        });
+        const warmPhoto = () => loadPhoto(photo.large).catch(() => {});
+        button.addEventListener("pointerenter", (event) => {
+          if (event.pointerType !== "touch") warmPhoto();
+        });
+        button.addEventListener("focus", warmPhoto);
+        button.addEventListener("animationend", (event) => {
+          if (event.target === button) button.classList.remove("is-new");
+        });
+        photoCards.set(photo.thumb, button);
+      }
       button.dataset.photoIndex = index;
       button.setAttribute(
         "aria-label",
@@ -369,34 +570,26 @@
           photo.label[language] +
           ` (${index + 1}/${photos.length})`,
       );
-      const img = node("img");
-      img.src = photo.thumb;
-      img.alt = photo.alt[language];
-      img.width = photo.width;
-      img.height = photo.height;
-      img.loading = "lazy";
-      img.decoding = "async";
-      const label = node("span", "photo-label");
-      label.append(
-        node("span", "", photo.label[language]),
-        node("span", "", "↗"),
-      );
-      label.setAttribute("aria-hidden", "true");
-      button.append(img, label);
-      button.addEventListener("click", () => {
-        photoIndex = index;
-        renderLightbox();
-        openDialog(lightbox);
-      });
-      fragment.append(button);
+      $("img", button).alt = photo.alt[language];
+      $(".photo-label > span", button).textContent = photo.label[language];
+      return button;
     });
-    $("#photo-grid").replaceChildren(fragment);
+    const wanted = new Set(cards);
+    [...grid.children].forEach((card) => {
+      if (!wanted.has(card)) card.remove();
+    });
+    cards.forEach((card, index) => {
+      if (grid.children[index] === card) return;
+      if (!card.isConnected) card.classList.add("is-new");
+      grid.insertBefore(card, grid.children[index] ?? null);
+    });
     $(".photo-count").textContent =
       `${Math.min(photoLimit, photos.length)} / ${photos.length} photos`;
     $("#more-photos").hidden = photoLimit >= photos.length;
   }
   $$("[data-destination]").forEach((button) =>
     button.addEventListener("click", () => {
+      if (destination === button.dataset.destination) return;
       destination = button.dataset.destination;
       photoLimit = 8;
       $$("[data-destination]").forEach((item) =>
@@ -405,29 +598,157 @@
       renderPhotos();
     }),
   );
-  $("#more-photos").addEventListener("click", () => {
+  $("#more-photos").addEventListener("click", (event) => {
     const oldLimit = photoLimit;
     photoLimit += 8;
     renderPhotos();
-    const added = $$(".photo-card").slice(oldLimit);
-    added.forEach((card) => card.classList.add("is-new"));
-    // Keep keyboard users at the start of the newly revealed photographs.
-    added[0]?.focus({ preventScroll: true });
+    if (event.detail === 0)
+      $$(".photo-card")[oldLimit]?.focus({ preventScroll: true });
   });
-  function renderLightbox() {
-    const photos = filteredPhotos();
-    const photo = photos[photoIndex];
-    const img = $("#lightbox-image");
-    img.src = photo.large;
-    img.alt = photo.alt[language];
-    $("#lightbox-counter").textContent =
-      `${photo.label[language]} · ${photoIndex + 1} / ${photos.length}`;
-    $("#lightbox-caption").textContent = photo.alt[language];
+
+  function clearPhotoTransition() {
+    photoTransitionId++;
+    photoAnimations.forEach((animation) => animation.cancel());
+    photoAnimations = [];
+    $$(".lightbox-outgoing").forEach((image) => image.remove());
   }
+
+  function fitLightboxImages() {
+    if (!lightbox.open) return;
+    const bounds = $(".lightbox-stage").getBoundingClientRect();
+    $$(".lightbox-stage img").forEach((image) => {
+      if (!image.width || !image.height) return;
+      const width = Number(image.getAttribute("width"));
+      const height = Number(image.getAttribute("height"));
+      const scale = Math.min(bounds.width / width, bounds.height / height);
+      image.style.width = `${width * scale}px`;
+      image.style.height = `${height * scale}px`;
+    });
+  }
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(fitLightboxImages).observe($(".lightbox-stage"));
+  } else {
+    window.addEventListener("resize", fitLightboxImages);
+  }
+
+  function updatePhotoCaption(photo, index) {
+    $("#lightbox-image").alt = photo.alt[language];
+    $("#lightbox-counter").textContent =
+      `${photo.label[language]} · ${index + 1} / ${filteredPhotos().length}`;
+    $("#lightbox-caption").textContent = photo.alt[language];
+    displayedPhotoIndex = index;
+  }
+
+  async function renderLightbox(direction = 0, initial = false) {
+    const photos = filteredPhotos();
+    const index = photoIndex;
+    const photo = photos[index];
+    const request = ++photoRequestId;
+    const img = $("#lightbox-image");
+    const stage = $(".lightbox-stage");
+    stage.setAttribute("aria-busy", "true");
+    if (initial) {
+      clearPhotoTransition();
+      img.src = photo.thumb;
+      img.width = photo.width;
+      img.height = photo.height;
+      updatePhotoCaption(photo, index);
+    }
+    try {
+      const decoded = await loadPhoto(photo.large);
+      // A late response must never replace a more recently requested photograph.
+      if (request !== photoRequestId || !lightbox.open || lightboxClosing)
+        return;
+      clearPhotoTransition();
+      const shouldAnimate =
+        !reducedMotion.matches && img.animate && img.src !== decoded.src;
+      let outgoing;
+      if (shouldAnimate) {
+        outgoing = img.cloneNode();
+        outgoing.removeAttribute("id");
+        outgoing.alt = "";
+        outgoing.setAttribute("aria-hidden", "true");
+        outgoing.className = "lightbox-outgoing";
+        stage.prepend(outgoing);
+      }
+      img.src = decoded.src;
+      img.width = photo.width;
+      img.height = photo.height;
+      fitLightboxImages();
+      updatePhotoCaption(photo, index);
+      stage.setAttribute("aria-busy", "false");
+      if (shouldAnimate) {
+        const transition = photoTransitionId;
+        const options = {
+          duration: 280,
+          easing: "cubic-bezier(.22, 1, .36, 1)",
+        };
+        photoAnimations = [
+          img.animate(
+            [
+              { opacity: 0, transform: `translate3d(${direction * 12}px,0,0)` },
+              { opacity: 1, transform: "translate3d(0,0,0)" },
+            ],
+            options,
+          ),
+          outgoing.animate(
+            [
+              { opacity: 1, transform: "translate3d(0,0,0)" },
+              {
+                opacity: 0,
+                transform: `translate3d(${-direction * 12}px,0,0)`,
+              },
+            ],
+            { ...options, fill: "forwards" },
+          ),
+        ];
+        Promise.allSettled(
+          photoAnimations.map((animation) => animation.finished),
+        ).then(() => {
+          if (transition === photoTransitionId) clearPhotoTransition();
+        });
+      }
+      for (const offset of [-1, 1]) {
+        loadPhoto(
+          photos[(index + offset + photos.length) % photos.length].large,
+        ).catch(() => {});
+      }
+    } catch {
+      if (request !== photoRequestId || !lightbox.open || lightboxClosing)
+        return;
+      photoIndex = displayedPhotoIndex;
+      stage.setAttribute("aria-busy", "false");
+      // Announce inside the modal: content outside a native dialog is inert.
+      $("#lightbox-caption").textContent = t(
+        "Cette photo n’a pas pu être chargée. Réessayez avec les flèches.",
+        "This photo could not be loaded. Try again using the arrows.",
+      );
+    }
+  }
+
+  function closeLightbox() {
+    if (!lightbox.open || lightboxClosing) return;
+    photoRequestId++;
+    if (reducedMotion.matches || !lightbox.animate) {
+      lightbox.close();
+      return;
+    }
+    lightboxClosing = true;
+    lightbox.classList.add("is-closing");
+    lightboxCloseAnimation = lightbox.animate(
+      [{ opacity: getComputedStyle(lightbox).opacity }, { opacity: 0 }],
+      { duration: 180, easing: "ease-in", fill: "forwards" },
+    );
+    lightboxCloseAnimation.finished
+      .then(() => lightbox.close())
+      .catch(() => {});
+  }
+
   function nextPhoto(delta) {
+    if (lightboxClosing) return;
     const length = filteredPhotos().length;
     photoIndex = (photoIndex + delta + length) % length;
-    renderLightbox();
+    renderLightbox(delta);
   }
   $(".lightbox-prev").addEventListener("click", () => nextPhoto(-1));
   $(".lightbox-next").addEventListener("click", () => nextPhoto(1));
@@ -442,7 +763,7 @@
     "touchstart",
     (event) => {
       touchStart =
-        event.touches.length === 1
+        event.touches.length === 1 && !event.target.closest("button")
           ? { x: event.touches[0].clientX, y: event.touches[0].clientY }
           : null;
     },
@@ -502,10 +823,28 @@
   });
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  reducedMotion.addEventListener("change", () => {
+    if (!reducedMotion.matches) return;
+    settleTabTransition();
+    clearPhotoTransition();
+    lightboxCloseAnimation?.finish();
+    disclosureAnimations.forEach(({ animation, opening }, details) => {
+      animation.cancel();
+      details.open = opening;
+      details.classList.remove("is-expanding");
+    });
+    disclosureAnimations.clear();
+  });
   function motionBehavior() {
     return reducedMotion.matches ? "instant" : "smooth";
   }
   if ("IntersectionObserver" in window) {
+    const heroObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) =>
+        entry.target.classList.toggle("is-in-view", entry.isIntersecting),
+      );
+    });
+    heroObserver.observe($(".hero"));
     const revealObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
